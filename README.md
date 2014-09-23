@@ -11,7 +11,7 @@ What is Shibecoin?
 ----------------
 
 In June 2014 Shibecoin was taken over by a community-backed development team.
-a swap to Shibecoin V3 in September 2014 will transition to a customized fork of Proof-of-Stake-Velocity (PoSV)
+A swap to Shibecoin V3 in September 2014 will transition to a customized fork of Proof-of-Stake-Velocity (PoSV)
 algorithm which replaced Proof-of-Stake (PoS) (and a 5-day PoW phase prior to PoS).
  - 1 minute block target
  - 3,000,000 Shibecoin mined during PoW phase
