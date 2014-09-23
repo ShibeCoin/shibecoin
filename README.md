@@ -15,8 +15,8 @@ A swap to Shibecoin V3 in September 2014 will transition to a customized fork of
 algorithm which replaced Proof-of-Stake (PoS) (and a 5-day PoW phase prior to PoS).
  - 1 minute block target
  - 3,000,000 Shibecoin mined during PoW phase
- - 15% annual interest in PoSV phase
-
+ - PoSV will change to 20% per annum stake for the first 6 months, decreasing by 5% every 6 months, until 5% per annum is reached and it will remain there indefinitely
+	
 Shibecoin first started in May 2014 as a variant of Litecoin using Scrypt as
 the Proof-of-Work (PoW) hash algorithm.
  - 1 minute block target
