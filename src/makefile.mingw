@@ -76,6 +76,7 @@ OBJS= \
     obj/netbase.o \
     obj/addrman.o \
     obj/crypter.o \
+    obj/donation.o \
     obj/key.o \
     obj/db.o \
     obj/init.o \

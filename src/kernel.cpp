@@ -453,7 +453,7 @@ unsigned int GetStakeModifierChecksum(const CBlockIndex* pindex)
 // Check stake modifier hard checkpoints
 bool CheckStakeModifierCheckpoints(int nHeight, uint64 nStakeModifierChecksum)
 {
-    //if (fDebug)
+    if (fDebug)
         printf("CheckStakeModifierCheckpoints : nHeight=%d, nStakeModifierChecksum=0x%016"PRI64x"\n", nHeight, nStakeModifierChecksum);
 
     MapModifierCheckpoints& checkpoints = (fTestNet ? mapStakeModifierCheckpointsTestNet : mapStakeModifierCheckpoints);

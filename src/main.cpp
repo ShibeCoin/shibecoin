@@ -4412,8 +4412,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 // requires LOCK(cs_vRecvMsg)
 bool ProcessMessages(CNode* pfrom)
 {
-    //if (fDebug)
-    //    printf("ProcessMessages(%zu messages)\n", pfrom->vRecvMsg.size());
+    if (fDebug)
+        printf("ProcessMessages(%zu messages)\n", pfrom->vRecvMsg.size());
 
     //
     // Message format
@@ -4440,10 +4440,10 @@ bool ProcessMessages(CNode* pfrom)
         // get next message
         CNetMessage& msg = *it;
 
-        //if (fDebug)
-        //    printf("ProcessMessages(message %u msgsz, %zu bytes, complete:%s)\n",
-        //            msg.hdr.nMessageSize, msg.vRecv.size(),
-        //            msg.complete() ? "Y" : "N");
+        if (fDebug)
+            printf("ProcessMessages(message %u msgsz, %zu bytes, complete:%s)\n",
+                    msg.hdr.nMessageSize, msg.vRecv.size(),
+                    msg.complete() ? "Y" : "N");
 
         // end, if an incomplete message is found
         if (!msg.complete())
