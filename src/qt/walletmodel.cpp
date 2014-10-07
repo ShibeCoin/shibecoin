@@ -349,7 +349,8 @@ static void NotifyTransactionChanged(WalletModel *walletmodel, CWallet *wallet, 
 
     // TODO: This is a bit of a hack here. Could (should?) bind a separate listener
     // for donation transactions.
-    CDonationDB::Update(wallet);
+    if (status == CT_UPDATED) CDonationDB::Update(wallet);
+    else if (status == CT_DELETED) CDonationDB(wallet->strDonationsFile).Delete(hash);
 
     QMetaObject::invokeMethod(walletmodel, "updateTransaction", Qt::QueuedConnection,
                               Q_ARG(QString, QString::fromStdString(hash.GetHex())),

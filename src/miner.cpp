@@ -566,17 +566,14 @@ bool CheckStake(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
         nPercent = 100.0;
     }
     int64 nDonation = nStakeAmount * nPercent * 0.01;
-    printf("CREATE DONATION nInputCredit %s\n", FormatMoney(nInputCredit).c_str());
-    printf("CREATE DONATION nStakeAmount %s\n", FormatMoney(nStakeAmount).c_str());
-    printf("CREATE DONATION nDonation %s\n\n", FormatMoney(nDonation).c_str());
     if (nDonation > 0) {
         uint256 hash = pblock->vtx[1].GetHash();
         CDonation donation(hash, nDonation, nDonatePercent);
         if (CDonationDB(wallet.strDonationsFile).Add(hash, donation)) {
-          printf("\n\nCREATED DONATION stake %s - donation %s = %s  TX %s\n\n", FormatMoney(nStakeAmount).c_str(), FormatMoney(nDonation).c_str(), FormatMoney(nStakeAmount - nDonation).c_str(), hash.GetHex().c_str());
+          printf("CREATED DONATION stake %s - donation %s = %s  TX %s\n", FormatMoney(nStakeAmount).c_str(), FormatMoney(nDonation).c_str(), FormatMoney(nStakeAmount - nDonation).c_str(), hash.GetHex().c_str());
         }
         else {
-          printf("\n\nFAILED TO WRITE DONATION stake %s - donation %s = %s  TX %s\n\n", FormatMoney(nStakeAmount).c_str(), FormatMoney(nDonation).c_str(), FormatMoney(nStakeAmount - nDonation).c_str(), hash.GetHex().c_str());
+          printf("FAILED TO WRITE DONATION stake %s - donation %s = %s  TX %s\n", FormatMoney(nStakeAmount).c_str(), FormatMoney(nDonation).c_str(), FormatMoney(nStakeAmount - nDonation).c_str(), hash.GetHex().c_str());
         }
     }
 

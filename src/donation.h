@@ -65,6 +65,7 @@ public:
 
 class CDonationDB : public CDB
 {
+
 public:
 
     CDonationDB(std::string strFilename, const char* pszMode="r+") : CDB(strFilename.c_str(), pszMode)
@@ -72,6 +73,10 @@ public:
     }
 
     static void Init(std::string filename);
+
+    /** Remove a donation.
+     */
+    bool Delete(const uint256 &hash);
 
     static void Update(CWallet *pWallet);
 
@@ -106,5 +111,5 @@ public:
 
     /** Sum of all donations.
      */
-    int64 GetTotalDonations(void);
+    static int64 GetTotalDonations(void);
 };

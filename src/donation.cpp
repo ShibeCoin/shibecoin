@@ -7,7 +7,8 @@
 #include "donation.h"
 
 typedef std::map<uint256, CDonation> MapDonations;
-MapDonations openDonations;
+MapDonations openDonations, donationCache;
+int64 nDonationsTotal;
 
 void CDonationDB::Init(std::string filename)
 {
@@ -16,6 +17,7 @@ void CDonationDB::Init(std::string filename)
     if (!pcursor)
         throw std::runtime_error("CDonationDB::Init() : cannot create DB cursor");
     unsigned int fFlags = DB_SET_RANGE;
+    nDonationsTotal = 0;
     loop
     {
         // Read next record
@@ -36,14 +38,21 @@ void CDonationDB::Init(std::string filename)
         // Unserialize
         std::string strType;
         ssKey >> strType;
-        if (strType != "source")
+        if (strType == "total") // Obsolete, but it's in a few existing DBs.
             continue;
         uint256 hash;
         CDonation donation;
-        ssKey >> hash;
-        ssValue >> donation;
-        if (!donation.IsNull() && !donation.IsPaid()) {
-            openDonations[hash] = donation;
+        if ((strType == "source") || (strType == "payment"))
+        {
+            ssKey >> hash;
+            ssValue >> donation;
+            if ((strType == "source") && !donation.IsNull() && !donation.IsPaid())
+            {
+                openDonations[hash] = donation;
+            }
+            donationCache[hash] = donation;
+            if (strType == "source")
+                nDonationsTotal += donation.nAmount;
         }
     }
 
@@ -52,11 +61,10 @@ void CDonationDB::Init(std::string filename)
 
 void CDonationDB::Update(CWallet *wallet)
 {
-
     if (wallet->IsLocked() || fWalletUnlockStakingOnly)
-    {
         return;
-    }
+
+    LOCK(wallet->cs_wallet);
 
     std::vector<uint256> removals;
     std::vector<CDonation> donations;
@@ -99,11 +107,11 @@ void CDonationDB::Update(CWallet *wallet)
             scriptChange.SetDestination(vchPubKey.GetID());
             wtx.vout.push_back(CTxOut(nChange, scriptChange));
         }
-        wtx.vin.push_back(CTxIn(pDonation.stakeTxHash, mi->second.vout.size()-1));
+        wtx.vin.push_back(CTxIn(pDonation.stakeTxHash, 1));
         if (!SignSignature(*wallet, mi->second, wtx, 0))
         {
             printf("ERROR CREATING DONATION TX: Signing transaction failed\n");
-            CDonationDB(wallet->strDonationsFile).Pay(pDonation, -1);
+            CDonationDB(wallet->strDonationsFile).Delete(pDonation.stakeTxHash);
             continue;
         }
         wtx.AddSupportingTransactions();
@@ -111,12 +119,26 @@ void CDonationDB::Update(CWallet *wallet)
         if (!wallet->CommitTransaction(wtx, reservekey))
         {
             printf("Error: The donation transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.\n");
-            CDonationDB(wallet->strDonationsFile).Pay(pDonation, -1);
+            openDonations[pDonation.stakeTxHash] = pDonation;  // Re-queue
             continue;
         }
         printf("CREATIED DONATION TX: %s\n", wtx.ToString().c_str());
         CDonationDB(wallet->strDonationsFile).Pay(pDonation, wtx.GetHash());
     }
+}
+
+bool CDonationDB::Delete(const uint256 &hash)
+{
+    CDonation donation;
+    Get(hash, donation);
+    if (donation.IsNull()) return false;
+    nDonationsTotal -= donation.nAmount;
+    openDonations.erase(donation.stakeTxHash);
+    donationCache.erase(donation.stakeTxHash);
+    openDonations.erase(donation.donateTxHash);
+    donationCache.erase(donation.donateTxHash);
+    return Erase(std::make_pair(std::string("source"), donation.stakeTxHash)) && 
+           Erase(std::make_pair(std::string("payment"), donation.donateTxHash));
 }
 
 bool CDonationDB::Add(const uint256 &stakeTxHash, const CDonation &donation)
@@ -126,52 +148,58 @@ bool CDonationDB::Add(const uint256 &stakeTxHash, const CDonation &donation)
     CScript scriptPubKey;
     scriptPubKey.SetDestination(address.Get());
     if (CTxOut(donation.nAmount, scriptPubKey).IsDust())
-    {
         return false;
-    }
     openDonations[stakeTxHash] = donation;
+    donationCache[stakeTxHash] = donation;
+    nDonationsTotal += donation.nAmount;
     return Write(std::make_pair(std::string("source"), stakeTxHash), donation);
 }
 
 bool CDonationDB::Pay(CDonation &donation, const uint256 &donateTxHash)
 {
     donation.donateTxHash = donateTxHash;
-    return Write(std::string("total"), GetTotalDonations() + donation.nAmount) &&
-           Write(std::make_pair(std::string("source"), donation.stakeTxHash), donation) &&
+    donationCache[donation.donateTxHash] = donation;
+    return Write(std::make_pair(std::string("source"), donation.stakeTxHash), donation) &&
            Write(std::make_pair(std::string("payment"), donation.donateTxHash), donation);
 }
 
 bool CDonationDB::Get(const uint256 &hash, CDonation &donationOut)
 {
     donationOut.SetNull();
-    if (Read(std::make_pair(std::string("source"), hash), donationOut)) return true;
-    return Read(std::make_pair(std::string("payment"), hash), donationOut);
+    MapDonations::const_iterator i = donationCache.find(hash);
+    if (i != donationCache.end())
+    {
+      donationOut = i->second;
+      return true;
+    }
+    return false;
 }
 
 bool CDonationDB::IsPaid(const uint256 &stakeTxHash)
 {
     CDonation donation;
-    if (Read(std::make_pair(std::string("source"), stakeTxHash), donation))
-        return donation.IsPaid();
-    else return false;
+    return Get(stakeTxHash, donation) ? donation.IsPaid() : false;
 }
 
 bool CDonationDB::IsDonationPayment(const uint256 &donateTxHash)
 {
-    return Exists(std::make_pair(std::string("payment"), donateTxHash));
+    CDonation donation;
+    MapDonations::const_iterator i = donationCache.find(donateTxHash);
+    if (i == donationCache.end())
+        return false;
+    return (i->second.donateTxHash == donateTxHash);
 }
 
 bool CDonationDB::IsDonationSource(const uint256 &stakeTxHash)
 {
-    return Exists(std::make_pair(std::string("source"), stakeTxHash));
+    CDonation donation;
+    MapDonations::const_iterator i = donationCache.find(stakeTxHash);
+    if (i == donationCache.end())
+        return false;
+    return (i->second.stakeTxHash == stakeTxHash);
 }
 
 int64 CDonationDB::GetTotalDonations(void)
 {
-    int64 nTotal = 0;
-    if (Exists(std::string("total")))
-    {
-        Read(std::string("total"), nTotal);
-    }
-    return nTotal;
+    return nDonationsTotal;
 }
