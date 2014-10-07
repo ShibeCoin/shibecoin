@@ -4,13 +4,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Reddcoin</source>
-        <translation>Informatio de Reddcoin</translation>
+        <source>About ShibeCoin</source>
+        <translation>Informatio de ShibeCoin</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Reddcoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Reddcoin&lt;/b&gt; versio</translation>
+        <source>&lt;b&gt;ShibeCoin&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;ShibeCoin&lt;/b&gt; versio</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -33,8 +33,8 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
     <message>
         <location line="+0"/>
-        <source>The Reddcoin developers</source>
-        <translation>Reddcoin curatores</translation>
+        <source>The ShibeCoin developers</source>
+        <translation>ShibeCoin curatores</translation>
     </message>
 </context>
 <context>
@@ -66,8 +66,8 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Reddcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Haec sunt inscriptiones Reddcoin tuae pro accipendo pensitationes.  Cupias variam ad quemque mittentem dare ut melius scias quem tibi pensare.</translation>
+        <source>These are your ShibeCoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Haec sunt inscriptiones ShibeCoin tuae pro accipendo pensitationes.  Cupias variam ad quemque mittentem dare ut melius scias quem tibi pensare.</translation>
     </message>
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
@@ -81,8 +81,8 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Reddcoin address</source>
-        <translation>Signa nuntium ut demonstres inscriptionem Reddcoin a te possessam esse</translation>
+        <source>Sign a message to prove you own a ShibeCoin address</source>
+        <translation>Signa nuntium ut demonstres inscriptionem ShibeCoin a te possessam esse</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -106,8 +106,8 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Reddcoin address</source>
-        <translation>Verifica nuntium ut cures signatum esse cum specificata inscriptione Reddcoin</translation>
+        <source>Verify a message to ensure it was signed with a specified ShibeCoin address</source>
+        <translation>Verifica nuntium ut cures signatum esse cum specificata inscriptione ShibeCoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -121,7 +121,7 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Reddcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your ShibeCoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Hae sunt inscriptiones mittendi pensitationes.  Semper inspice quantitatem et inscriptionem accipiendi antequam nummos mittis.</translation>
     </message>
     <message>
@@ -274,8 +274,8 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
     <message>
         <location line="-56"/>
-        <source>Reddcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your reddcoins from being stolen by malware infecting your computer.</source>
-        <translation>Reddcoin iam desinet ut finiat actionem cifrandi.  Memento cassidile cifrare non posse cuncte curare ne tui nummi clepantur ab malis programatibus in tuo computatro.</translation>
+        <source>ShibeCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your reddcoins from being stolen by malware infecting your computer.</source>
+        <translation>ShibeCoin iam desinet ut finiat actionem cifrandi.  Memento cassidile cifrare non posse cuncte curare ne tui nummi clepantur ab malis programatibus in tuo computatro.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -373,8 +373,8 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Reddcoin</source>
-        <translation>Monstra informationem de Reddcoin</translation>
+        <source>Show information about ShibeCoin</source>
+        <translation>Monstra informationem de ShibeCoin</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -418,13 +418,13 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Reddcoin address</source>
-        <translation>Mitte nummos ad inscriptionem Reddcoin</translation>
+        <source>Send coins to a ShibeCoin address</source>
+        <translation>Mitte nummos ad inscriptionem ShibeCoin</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Reddcoin</source>
-        <translation>Muta configurationis optiones pro Reddcoin</translation>
+        <source>Modify configuration options for ShibeCoin</source>
+        <translation>Muta configurationis optiones pro ShibeCoin</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -454,8 +454,8 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Reddcoin</source>
-        <translation>Reddcoin</translation>
+        <source>ShibeCoin</source>
+        <translation>ShibeCoin</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -479,8 +479,8 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Reddcoin</source>
-        <translation>&amp;Informatio de Reddcoin</translation>
+        <source>&amp;About ShibeCoin</source>
+        <translation>&amp;Informatio de ShibeCoin</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -499,13 +499,13 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Reddcoin addresses to prove you own them</source>
-        <translation>Signa nuntios cum tuis inscriptionibus Reddcoin ut demonstres te eas possidere</translation>
+        <source>Sign messages with your ShibeCoin addresses to prove you own them</source>
+        <translation>Signa nuntios cum tuis inscriptionibus ShibeCoin ut demonstres te eas possidere</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Reddcoin addresses</source>
-        <translation>Verifica nuntios ut certus sis eos signatos esse cum specificatis inscriptionibus Reddcoin</translation>
+        <source>Verify messages to ensure they were signed with specified ShibeCoin addresses</source>
+        <translation>Verifica nuntios ut certus sis eos signatos esse cum specificatis inscriptionibus ShibeCoin</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -535,13 +535,13 @@ Hoc productum continet programmata composita ab OpenSSL Project pro utendo in Op
     </message>
     <message>
         <location line="+47"/>
-        <source>Reddcoin client</source>
-        <translation>Reddcoin cliens</translation>
+        <source>ShibeCoin client</source>
+        <translation>ShibeCoin cliens</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Reddcoin network</source>
-        <translation><numerusform>%n activa conexio ad rete Reddcoin</numerusform><numerusform>%n activae conexiones ad rete Reddcoin</numerusform></translation>
+        <source>%n active connection(s) to ShibeCoin network</source>
+        <translation><numerusform>%n activa conexio ad rete ShibeCoin</numerusform><numerusform>%n activae conexiones ad rete ShibeCoin</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -655,8 +655,8 @@ Inscriptio: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Reddcoin address or malformed URI parameters.</source>
-        <translation>URI intellegi non posse!  Huius causa possit inscriptionem Reddcoin non validam aut URI parametra maleformata.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid ShibeCoin address or malformed URI parameters.</source>
+        <translation>URI intellegi non posse!  Huius causa possit inscriptionem ShibeCoin non validam aut URI parametra maleformata.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -670,8 +670,8 @@ Inscriptio: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Reddcoin can no longer continue safely and will quit.</source>
-        <translation>Error fatalis accidit.  Reddcoin nondum pergere tute potest, et exibit.</translation>
+        <source>A fatal error occurred. ShibeCoin can no longer continue safely and will quit.</source>
+        <translation>Error fatalis accidit.  ShibeCoin nondum pergere tute potest, et exibit.</translation>
     </message>
 </context>
 <context>
@@ -736,8 +736,8 @@ Inscriptio: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Reddcoin address.</source>
-        <translation>Inscriptio inserta &quot;%1&quot; non valida inscriptio Reddcoin est.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid ShibeCoin address.</source>
+        <translation>Inscriptio inserta &quot;%1&quot; non valida inscriptio ShibeCoin est.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -755,8 +755,8 @@ Inscriptio: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Reddcoin-Qt</source>
-        <translation>Reddcoin-Qt</translation>
+        <source>ShibeCoin-Qt</source>
+        <translation>ShibeCoin-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -818,13 +818,13 @@ Inscriptio: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Reddcoin after logging in to the system.</source>
-        <translation>Pelle Reddcoin per se postquam in systema inire.</translation>
+        <source>Automatically start ShibeCoin after logging in to the system.</source>
+        <translation>Pelle ShibeCoin per se postquam in systema inire.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Reddcoin on system login</source>
-        <translation>&amp;Pelle Reddcoin cum inire systema</translation>
+        <source>&amp;Start ShibeCoin on system login</source>
+        <translation>&amp;Pelle ShibeCoin cum inire systema</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -843,8 +843,8 @@ Inscriptio: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Reddcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Aperi per se portam clientis Reddcoin in itineratore.  Hoc tantum effectivum est si itineratrum tuum supportat UPnP et id activum est.</translation>
+        <source>Automatically open the ShibeCoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Aperi per se portam clientis ShibeCoin in itineratore.  Hoc tantum effectivum est si itineratrum tuum supportat UPnP et id activum est.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -853,8 +853,8 @@ Inscriptio: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Reddcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Connecte ad rete Reddcoin per SOCKS vicarium (e.g. quando conectens per Tor).</translation>
+        <source>Connect to the ShibeCoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Connecte ad rete ShibeCoin per SOCKS vicarium (e.g. quando conectens per Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -928,8 +928,8 @@ Inscriptio: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Reddcoin.</source>
-        <translation>Lingua monstranda utenti hic constitui potest.  Haec configuratio effectiva erit postquam Reddcoin iterum initiatum erit.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting ShibeCoin.</source>
+        <translation>Lingua monstranda utenti hic constitui potest.  Haec configuratio effectiva erit postquam ShibeCoin iterum initiatum erit.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -943,8 +943,8 @@ Inscriptio: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Reddcoin addresses in the transaction list or not.</source>
-        <translation>Num monstrare inscriptiones Reddcoin in enumeratione transactionum.</translation>
+        <source>Whether to show ShibeCoin addresses in the transaction list or not.</source>
+        <translation>Num monstrare inscriptiones ShibeCoin in enumeratione transactionum.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -995,8 +995,8 @@ Inscriptio: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Reddcoin.</source>
-        <translation>Haec configuratio effectiva erit postquam Reddcoin iterum initiatum erit.</translation>
+        <source>This setting will take effect after restarting ShibeCoin.</source>
+        <translation>Haec configuratio effectiva erit postquam ShibeCoin iterum initiatum erit.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1014,8 +1014,8 @@ Inscriptio: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Reddcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>Monstrata informatio fortasse non recentissima est.  Tuum cassidile per se synchronizat cum rete Reddcoin postquam conexio constabilita est, sed hoc actio nondum perfecta est.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ShibeCoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>Monstrata informatio fortasse non recentissima est.  Tuum cassidile per se synchronizat cum rete ShibeCoin postquam conexio constabilita est, sed hoc actio nondum perfecta est.</translation>
     </message>
     <message>
         <location line="-124"/>
@@ -1069,7 +1069,7 @@ Inscriptio: %4
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
         <source>Cannot start reddcoin: click-to-pay handler</source>
-        <translation>Reddcoin incipere non potest: cliccare-ad-pensandum handler</translation>
+        <translation>ShibeCoin incipere non potest: cliccare-ad-pensandum handler</translation>
     </message>
 </context>
 <context>
@@ -1218,8 +1218,8 @@ Inscriptio: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Reddcoin-Qt help message to get a list with possible Reddcoin command-line options.</source>
-        <translation>Monstra nuntium auxilii Reddcoin-Qt ut videas enumerationem possibilium optionum Reddcoin mandati initiantis.</translation>
+        <source>Show the ShibeCoin-Qt help message to get a list with possible ShibeCoin command-line options.</source>
+        <translation>Monstra nuntium auxilii ShibeCoin-Qt ut videas enumerationem possibilium optionum ShibeCoin mandati initiantis.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1238,13 +1238,13 @@ Inscriptio: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Reddcoin - Debug window</source>
-        <translation>Reddcoin - Fenestra debug</translation>
+        <source>ShibeCoin - Debug window</source>
+        <translation>ShibeCoin - Fenestra debug</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Reddcoin Core</source>
-        <translation>Reddcoin Nucleus</translation>
+        <source>ShibeCoin Core</source>
+        <translation>ShibeCoin Nucleus</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1253,8 +1253,8 @@ Inscriptio: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Reddcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Aperi plicam catalogi de Reddcoin debug ex activo indice datorum.  Hoc possit pauca secunda pro plicis magnis catalogi.</translation>
+        <source>Open the ShibeCoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Aperi plicam catalogi de ShibeCoin debug ex activo indice datorum.  Hoc possit pauca secunda pro plicis magnis catalogi.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1263,8 +1263,8 @@ Inscriptio: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Reddcoin RPC console.</source>
-        <translation>Bene ventio in terminale RPC de Reddcoin.</translation>
+        <source>Welcome to the ShibeCoin RPC console.</source>
+        <translation>Bene ventio in terminale RPC de ShibeCoin.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1447,8 +1447,8 @@ Inscriptio: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Reddcoin address (starts with R)</source>
-        <translation>Insero inscriptionem Reddcoin (starts with R)</translation>
+        <source>Enter a ShibeCoin address (starts with R)</source>
+        <translation>Insero inscriptionem ShibeCoin (starts with R)</translation>
     </message>
 </context>
 <context>
@@ -1512,8 +1512,8 @@ Inscriptio: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Reddcoin address</source>
-        <translation>Signa nuntium ut demonstres hanc inscriptionem Reddcoin a te possessa esse</translation>
+        <source>Sign the message to prove you own this ShibeCoin address</source>
+        <translation>Signa nuntium ut demonstres hanc inscriptionem ShibeCoin a te possessa esse</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1548,8 +1548,8 @@ Inscriptio: %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Reddcoin address</source>
-        <translation>Verifica nuntium ut cures signatum esse cum specifica inscriptione Reddcoin</translation>
+        <source>Verify the message to ensure it was signed with the specified ShibeCoin address</source>
+        <translation>Verifica nuntium ut cures signatum esse cum specifica inscriptione ShibeCoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1564,8 +1564,8 @@ Inscriptio: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Reddcoin address (starts with R)</source>
-        <translation>Insere inscriptionem Reddcoin (starts with R)</translation>
+        <source>Enter a ShibeCoin address (starts with R)</source>
+        <translation>Insere inscriptionem ShibeCoin (starts with R)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1574,8 +1574,8 @@ Inscriptio: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Reddcoin signature</source>
-        <translation>Insere signationem Reddcoin</translation>
+        <source>Enter ShibeCoin signature</source>
+        <translation>Insere signationem ShibeCoin</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1648,8 +1648,8 @@ Inscriptio: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Reddcoin developers</source>
-        <translation>Reddcoin curatores</translation>
+        <source>The ShibeCoin developers</source>
+        <translation>ShibeCoin curatores</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2186,8 +2186,8 @@ Inscriptio: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Reddcoin version</source>
-        <translation>Versio de Reddcoin</translation>
+        <source>ShibeCoin version</source>
+        <translation>Versio de ShibeCoin</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -2236,8 +2236,8 @@ Inscriptio: %4
     </message>
     <message>
         <location line="-28"/>
-        <source>Listen for connections on &lt;port&gt; (default: 45444 or testnet: 55444)</source>
-        <translation>Ausculta pro conexionibus in &lt;porta&gt; (praedefinitum: 45444 vel testnet: 55444)</translation>
+        <source>Listen for connections on &lt;port&gt; (default: 45444 or testnet: 54183)</source>
+        <translation>Ausculta pro conexionibus in &lt;porta&gt; (praedefinitum: 45444 vel testnet: 54183)</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2271,8 +2271,8 @@ Inscriptio: %4
     </message>
     <message>
         <location line="+27"/>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 45443 or testnet: 145443)</source>
-        <translation>Ausculta pro conexionibus JSON-RPC in &lt;porta&gt; (praedefinitum: 45443 vel testnet: 145443)</translation>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 5418 or testnet: 15418)</source>
+        <translation>Ausculta pro conexionibus JSON-RPC in &lt;porta&gt; (praedefinitum: 5418 vel testnet: 15418)</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -2305,7 +2305,7 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Reddcoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;ShibeCoin Alert&quot; admin@foo.com
 </source>
         <translation>%s, necesse est te rpcpassword constituere in plica configurationis:
 %s
@@ -2316,7 +2316,7 @@ rpcpassword=%s
 Nomen usoris et tessera eadem esse NON POSSUNT.
 Si plica non existit, eam crea cum permissionibus ut eius dominus tantum sinitur id legere.
 Quoque hortatur alertnotify constituere ut tu notificetur de problematibus;
-exempli gratia: alertnotify=echo %%s | mail -s &quot;Reddcoin Notificatio&quot; admin@foo.com
+exempli gratia: alertnotify=echo %%s | mail -s &quot;ShibeCoin Notificatio&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -2331,8 +2331,8 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;Reddcoin Notificatio&quot; 
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Reddcoin is probably already running.</source>
-        <translation>Non posse serare datorum indicem %s.  Reddcoin probabiliter iam operatur.</translation>
+        <source>Cannot obtain a lock on data directory %s. ShibeCoin is probably already running.</source>
+        <translation>Non posse serare datorum indicem %s.  ShibeCoin probabiliter iam operatur.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2376,8 +2376,8 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;Reddcoin Notificatio&quot; 
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Reddcoin will not work properly.</source>
-        <translation>Monitio: Sodes cura ut dies tempusque computatri tui recti sunt!  Si horologium tuum pravum est, Reddcoin non proprie fungetur.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ShibeCoin will not work properly.</source>
+        <translation>Monitio: Sodes cura ut dies tempusque computatri tui recti sunt!  Si horologium tuum pravum est, ShibeCoin non proprie fungetur.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2627,7 +2627,7 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;Reddcoin Notificatio&quot; 
     <message>
         <location line="+5"/>
         <source>SSL options: (see wiki.reddcoin.com for SSL setup instructions)</source>
-        <translation>Optiones SSL: (vide vici de Reddcoin pro instructionibus SSL configurationis)</translation>
+        <translation>Optiones SSL: (vide vici de ShibeCoin pro instructionibus SSL configurationis)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2816,13 +2816,13 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;Reddcoin Notificatio&quot; 
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Reddcoin</source>
-        <translation>Error legendi wallet.dat: Cassidili necesse est recentior versio Reddcoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of ShibeCoin</source>
+        <translation>Error legendi wallet.dat: Cassidili necesse est recentior versio ShibeCoin</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Reddcoin to complete</source>
-        <translation>Cassidili necesse erat rescribi: Repelle Reddcoin ut compleas</translation>
+        <source>Wallet needed to be rewritten: restart ShibeCoin to complete</source>
+        <translation>Cassidili necesse erat rescribi: Repelle ShibeCoin ut compleas</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2881,8 +2881,8 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;Reddcoin Notificatio&quot; 
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Reddcoin is probably already running.</source>
-        <translation>Non posse conglutinare ad %s in hoc cumputatro.  Reddcoin probabiliter iam operatur.</translation>
+        <source>Unable to bind to %s on this computer. ShibeCoin is probably already running.</source>
+        <translation>Non posse conglutinare ad %s in hoc cumputatro.  ShibeCoin probabiliter iam operatur.</translation>
     </message>
     <message>
         <location line="+64"/>

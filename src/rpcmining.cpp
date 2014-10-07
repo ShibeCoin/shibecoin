@@ -1,6 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
-// Copyright (c) 2014 The Reddcoin developers
+// Copyright (c) 2014 The ShibeCoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -102,21 +102,24 @@ Value setgenerate(const Array& params, bool fHelp)
             "<generate> is true or false to turn generation on or off.\n"
             "Generation is limited to [genproclimit] processors, -1 is unlimited.");
 
-    bool fGenerate = true;
+    bool fGeneratePoS = true;
     if (params.size() > 0)
-        fGenerate = params[0].get_bool();
+        fGeneratePoS = params[0].get_bool();
 
+    bool fGeneratePoW = false;
     if (params.size() > 1)
     {
         int nGenProcLimit = params[1].get_int();
         mapArgs["-genproclimit"] = itostr(nGenProcLimit);
         if (nGenProcLimit == 0)
-            fGenerate = false;
+            fGeneratePoS = false;
+        else
+            fGeneratePoW = true;
     }
-    mapArgs["-staking"] = (fGenerate ? "1" : "0");
+    mapArgs["-staking"] = (fGeneratePoS ? "1" : "0");
 
     assert(pwalletMain != NULL);
-    GenerateReddcoins(fGenerate, pwalletMain);
+    GenerateShibeCoins(fGeneratePoW, fGeneratePoS, pwalletMain);
     return Value::null;
 }
 
@@ -161,7 +164,7 @@ Value getmininginfo(const Array& params, bool fHelp)
     weight.push_back(Pair("average", (uint64_t)nAverageWeight));
     weight.push_back(Pair("total",   (uint64_t)nTotalWeight));
     obj.push_back(Pair("stakeweight", weight));
-    obj.push_back(Pair("stakeinterest",  (uint64_t)COIN_YEAR_REWARD));
+    obj.push_back(Pair("stakeinterest",  (uint64_t)CoinYearReward(nBestHeight+1)));
     obj.push_back(Pair("netstakeweight", (uint64_t)GetPoSVKernelPS()));
     return obj;
 }
@@ -210,10 +213,10 @@ Value getworkex(const Array& params, bool fHelp)
         );
 
     if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Reddcoin is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "ShibeCoin is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Reddcoin is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "ShibeCoin is downloading blocks...");
 
     if (pindexBest->nHeight >= LAST_POW_BLOCK)
         throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
@@ -353,10 +356,10 @@ Value getwork(const Array& params, bool fHelp)
             "If [data] is specified, tries to solve the block and returns true if it was successful.");
 
     if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Reddcoin is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "ShibeCoin is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Reddcoin is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "ShibeCoin is downloading blocks...");
 
     if (pindexBest->nHeight >= LAST_POW_BLOCK)
         throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
@@ -511,10 +514,10 @@ Value getblocktemplate(const Array& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
 
     if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Reddcoin is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "ShibeCoin is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Reddcoin is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "ShibeCoin is downloading blocks...");
 
     if (pindexBest->nHeight >= LAST_POW_BLOCK)
         throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");

@@ -1,7 +1,7 @@
 src/*.exe
-src/reddcoin
-src/reddcoind
-src/test_reddcoin
+src/shibecoin
+src/shibecoind
+src/test_shibecoin
 src/tags
 .*.swp
 *.*~*
@@ -10,17 +10,17 @@ src/tags
 *.orig
 *.o
 *.patch
-.reddcoin
+.shibecoin
 
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-reddcoin-qt
-Reddcoin-Qt.app
+shibecoin-qt
+ShibeCoin-Qt.app
 
 # Unit-tests
 Makefile.test
-reddcoin-qt_test
+shibecoin-qt_test
 
 # Resources cpp
 qrc_*.cpp
@@ -36,7 +36,7 @@ build
 
 .qmake.stash
 Info.plist
-Reddcoin-Qt.xcodeproj
+ShibeCoin-Qt.xcodeproj
 dist/
 *.dmg
 

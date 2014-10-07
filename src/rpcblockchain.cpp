@@ -132,8 +132,8 @@ Value settxfee(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 1)
         throw runtime_error(
-            "settxfee <amount RDD/kb>\n"
-            "<amount> is a real and is rounded to the nearest 0.00000001 RDD per kb");
+            "settxfee <amount SHIBE/kb>\n"
+            "<amount> is a real and is rounded to the nearest 0.00000001 SHIBE per kb");
 
     // Amount
     int64 nAmount = 0;

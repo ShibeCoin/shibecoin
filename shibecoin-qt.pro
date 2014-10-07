@@ -1,6 +1,6 @@
 TEMPLATE = app
-TARGET = reddcoin-qt
-macx:TARGET = "Reddcoin-Qt"
+TARGET = shibecoin-qt
+macx:TARGET = "ShibeCoin-Qt"
 VERSION = 1.4.0.0
 INCLUDEPATH += src src/json src/qt
 QT += core gui network
@@ -173,6 +173,7 @@ HEADERS += src/qt/bitcoingui.h \
     src/bloom.h \
     src/mruset.h \
     src/checkqueue.h \
+    src/donation.h \
     src/json/json_spirit_writer_template.h \
     src/json/json_spirit_writer.h \
     src/json/json_spirit_value.h \
@@ -255,6 +256,7 @@ SOURCES += src/qt/bitcoin.cpp \
     src/addrman.cpp \
     src/db.cpp \
     src/walletdb.cpp \
+    src/donation.cpp \
     src/qt/clientmodel.cpp \
     src/qt/guiutil.cpp \
     src/qt/transactionrecord.cpp \
@@ -325,7 +327,7 @@ SOURCES += src/qt/test/test_main.cpp \
 HEADERS += src/qt/test/uritests.h
 DEPENDPATH += src/qt/test
 QT += testlib
-TARGET = reddcoin-qt_test
+TARGET = shibecoin-qt_test
 DEFINES += BITCOIN_QT_TEST
   macx: CONFIG -= app_bundle
 }
@@ -425,7 +427,7 @@ macx:HEADERS += src/qt/macdockiconhandler.h src/qt/macnotificationhandler.h
 macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm src/qt/macnotificationhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit -framework CoreServices
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
-macx:ICON = src/qt/res/icons/reddcoin.icns
+macx:ICON = src/qt/res/icons/shibecoin.icns
 macx:QMAKE_CFLAGS_THREAD += -pthread
 macx:QMAKE_LFLAGS_THREAD += -pthread
 macx:QMAKE_CXXFLAGS_THREAD += -pthread

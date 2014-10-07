@@ -4,13 +4,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Reddcoin</source>
-        <translation>&amp;О Reddcoin</translation>
+        <source>About ShibeCoin</source>
+        <translation>&amp;О ShibeCoin</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Reddcoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Reddcoin&lt;/b&gt; версия</translation>
+        <source>&lt;b&gt;ShibeCoin&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;ShibeCoin&lt;/b&gt; версия</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -34,8 +34,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+0"/>
-        <source>The Reddcoin developers</source>
-        <translation>Разработчики Reddcoin</translation>
+        <source>The ShibeCoin developers</source>
+        <translation>Разработчики ShibeCoin</translation>
     </message>
 </context>
 <context>
@@ -67,7 +67,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Reddcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <source>These are your ShibeCoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
         <translation>Это Ваши адреса для получения платежей. Вы можете дать разные адреса отправителям, чтобы отслеживать, кто именно вам платит.</translation>
     </message>
     <message>
@@ -82,8 +82,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Reddcoin address</source>
-        <translation>Подписать сообщение, чтобы доказать владение адресом Reddcoin</translation>
+        <source>Sign a message to prove you own a ShibeCoin address</source>
+        <translation>Подписать сообщение, чтобы доказать владение адресом ShibeCoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -107,8 +107,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Reddcoin address</source>
-        <translation>Проверить сообщение, чтобы убедиться, что оно было подписано указанным адресом Reddcoin</translation>
+        <source>Verify a message to ensure it was signed with a specified ShibeCoin address</source>
+        <translation>Проверить сообщение, чтобы убедиться, что оно было подписано указанным адресом ShibeCoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -122,7 +122,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Reddcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your ShibeCoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Ваши адреса для получения средств. Совет: проверьте сумму и адрес назначения перед переводом.</translation>
     </message>
     <message>
@@ -275,8 +275,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-56"/>
-        <source>Reddcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your reddcoins from being stolen by malware infecting your computer.</source>
-        <translation>Сейчас программа закроется для завершения процесса шифрования. Помните, что шифрование вашего бумажника не может полностью защитить ваши Reddcoin от кражи с помощью инфицирования вашего компьютера вредоносным ПО.</translation>
+        <source>ShibeCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your reddcoins from being stolen by malware infecting your computer.</source>
+        <translation>Сейчас программа закроется для завершения процесса шифрования. Помните, что шифрование вашего бумажника не может полностью защитить ваши ShibeCoin от кражи с помощью инфицирования вашего компьютера вредоносным ПО.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -374,8 +374,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Reddcoin</source>
-        <translation>Показать информацию о Reddcoin&apos;е</translation>
+        <source>Show information about ShibeCoin</source>
+        <translation>Показать информацию о ShibeCoin&apos;е</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -419,13 +419,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Reddcoin address</source>
-        <translation>Отправить монеты на указанный адрес Reddcoin</translation>
+        <source>Send coins to a ShibeCoin address</source>
+        <translation>Отправить монеты на указанный адрес ShibeCoin</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Reddcoin</source>
-        <translation>Изменить параметры конфигурации Reddcoin</translation>
+        <source>Modify configuration options for ShibeCoin</source>
+        <translation>Изменить параметры конфигурации ShibeCoin</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -455,8 +455,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Reddcoin</source>
-        <translation>Reddcoin</translation>
+        <source>ShibeCoin</source>
+        <translation>ShibeCoin</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -480,8 +480,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Reddcoin</source>
-        <translation>&amp;О Reddcoin</translation>
+        <source>&amp;About ShibeCoin</source>
+        <translation>&amp;О ShibeCoin</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -500,13 +500,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Reddcoin addresses to prove you own them</source>
-        <translation>Подписать сообщения вашим адресом Reddcoin, чтобы доказать, что вы им владеете</translation>
+        <source>Sign messages with your ShibeCoin addresses to prove you own them</source>
+        <translation>Подписать сообщения вашим адресом ShibeCoin, чтобы доказать, что вы им владеете</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Reddcoin addresses</source>
-        <translation>Проверить сообщения, чтобы удостовериться, что они были подписаны определённым адресом Reddcoin</translation>
+        <source>Verify messages to ensure they were signed with specified ShibeCoin addresses</source>
+        <translation>Проверить сообщения, чтобы удостовериться, что они были подписаны определённым адресом ShibeCoin</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -536,12 +536,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+47"/>
-        <source>Reddcoin client</source>
-        <translation>Reddcoin клиент</translation>
+        <source>ShibeCoin client</source>
+        <translation>ShibeCoin клиент</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Reddcoin network</source>
+        <source>%n active connection(s) to ShibeCoin network</source>
         <translation><numerusform>%n активное соединение с сетью</numerusform><numerusform>%n активных соединений с сетью</numerusform><numerusform>%n активных соединений с сетью</numerusform></translation>
     </message>
     <message>
@@ -656,8 +656,8 @@ Address: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Reddcoin address or malformed URI parameters.</source>
-        <translation>Не удалось обработать URI! Это может быть связано с неверным адресом Reddcoin или неправильными параметрами URI.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid ShibeCoin address or malformed URI parameters.</source>
+        <translation>Не удалось обработать URI! Это может быть связано с неверным адресом ShibeCoin или неправильными параметрами URI.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -671,8 +671,8 @@ Address: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Reddcoin can no longer continue safely and will quit.</source>
-        <translation>Произошла неисправимая ошибка. Reddcoin не может безопасно продолжать работу и будет закрыт.</translation>
+        <source>A fatal error occurred. ShibeCoin can no longer continue safely and will quit.</source>
+        <translation>Произошла неисправимая ошибка. ShibeCoin не может безопасно продолжать работу и будет закрыт.</translation>
     </message>
 </context>
 <context>
@@ -737,8 +737,8 @@ Address: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Reddcoin address.</source>
-        <translation>Введённый адрес &quot;%1&quot; не является правильным Reddcoin-адресом.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid ShibeCoin address.</source>
+        <translation>Введённый адрес &quot;%1&quot; не является правильным ShibeCoin-адресом.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -756,8 +756,8 @@ Address: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Reddcoin-Qt</source>
-        <translation>Reddcoin-Qt</translation>
+        <source>ShibeCoin-Qt</source>
+        <translation>ShibeCoin-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -819,13 +819,13 @@ Address: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Reddcoin after logging in to the system.</source>
-        <translation>Автоматически запускать Reddcoin после входа в систему</translation>
+        <source>Automatically start ShibeCoin after logging in to the system.</source>
+        <translation>Автоматически запускать ShibeCoin после входа в систему</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Reddcoin on system login</source>
-        <translation>&amp;Запускать Reddcoin при входе в систему</translation>
+        <source>&amp;Start ShibeCoin on system login</source>
+        <translation>&amp;Запускать ShibeCoin при входе в систему</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -844,8 +844,8 @@ Address: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Reddcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Автоматически открыть порт для Reddcoin-клиента на роутере. Работает только если Ваш роутер поддерживает UPnP, и данная функция включена.</translation>
+        <source>Automatically open the ShibeCoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Автоматически открыть порт для ShibeCoin-клиента на роутере. Работает только если Ваш роутер поддерживает UPnP, и данная функция включена.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -854,8 +854,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Reddcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Подключаться к сети Reddcoin через прокси SOCKS (например, при подключении через Tor).</translation>
+        <source>Connect to the ShibeCoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Подключаться к сети ShibeCoin через прокси SOCKS (например, при подключении через Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -929,8 +929,8 @@ Address: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Reddcoin.</source>
-        <translation>Здесь можно выбрать язык интерфейса. Настройки вступят в силу после перезапуска Reddcoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting ShibeCoin.</source>
+        <translation>Здесь можно выбрать язык интерфейса. Настройки вступят в силу после перезапуска ShibeCoin.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -944,8 +944,8 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Reddcoin addresses in the transaction list or not.</source>
-        <translation>Показывать ли адреса Reddcoin в списке транзакций.</translation>
+        <source>Whether to show ShibeCoin addresses in the transaction list or not.</source>
+        <translation>Показывать ли адреса ShibeCoin в списке транзакций.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -996,8 +996,8 @@ Address: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Reddcoin.</source>
-        <translation>Эта настройка вступит в силу после перезапуска Reddcoin</translation>
+        <source>This setting will take effect after restarting ShibeCoin.</source>
+        <translation>Эта настройка вступит в силу после перезапуска ShibeCoin</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1015,8 +1015,8 @@ Address: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Reddcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>Отображаемая информация может быть устаревшей. Ваш бумажник автоматически синхронизируется с сетью Reddcoin после подключения, но этот процесс пока не завершён.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ShibeCoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>Отображаемая информация может быть устаревшей. Ваш бумажник автоматически синхронизируется с сетью ShibeCoin после подключения, но этот процесс пока не завершён.</translation>
     </message>
     <message>
         <location line="-124"/>
@@ -1219,8 +1219,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Reddcoin-Qt help message to get a list with possible Reddcoin command-line options.</source>
-        <translation>Показать помощь по Reddcoin-Qt, чтобы получить список доступных параметров командной строки.</translation>
+        <source>Show the ShibeCoin-Qt help message to get a list with possible ShibeCoin command-line options.</source>
+        <translation>Показать помощь по ShibeCoin-Qt, чтобы получить список доступных параметров командной строки.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1239,13 +1239,13 @@ Address: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Reddcoin - Debug window</source>
-        <translation>Reddcoin - Окно отладки</translation>
+        <source>ShibeCoin - Debug window</source>
+        <translation>ShibeCoin - Окно отладки</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Reddcoin Core</source>
-        <translation>Ядро Reddcoin</translation>
+        <source>ShibeCoin Core</source>
+        <translation>Ядро ShibeCoin</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1254,8 +1254,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Reddcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Открыть отладочный лог-файл Reddcoin из текущего каталога данных. Это может занять несколько секунд для больших лог-файлов.</translation>
+        <source>Open the ShibeCoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Открыть отладочный лог-файл ShibeCoin из текущего каталога данных. Это может занять несколько секунд для больших лог-файлов.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1264,8 +1264,8 @@ Address: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Reddcoin RPC console.</source>
-        <translation>Добро пожаловать в RPC-консоль Reddcoin.</translation>
+        <source>Welcome to the ShibeCoin RPC console.</source>
+        <translation>Добро пожаловать в RPC-консоль ShibeCoin.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1448,8 +1448,8 @@ Address: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Reddcoin address (starts with R)</source>
-        <translation>Введите Reddcoin-адрес (например 1LA5FtQhnnWnkK6zjFfutR7Stiit4wKd63)</translation>
+        <source>Enter a ShibeCoin address (starts with R)</source>
+        <translation>Введите ShibeCoin-адрес (например 1LA5FtQhnnWnkK6zjFfutR7Stiit4wKd63)</translation>
     </message>
 </context>
 <context>
@@ -1513,8 +1513,8 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Reddcoin address</source>
-        <translation>Подписать сообщение, чтобы доказать владение адресом Reddcoin</translation>
+        <source>Sign the message to prove you own this ShibeCoin address</source>
+        <translation>Подписать сообщение, чтобы доказать владение адресом ShibeCoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1549,8 +1549,8 @@ Address: %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Reddcoin address</source>
-        <translation>Проверить сообщение, чтобы убедиться, что оно было подписано указанным адресом Reddcoin</translation>
+        <source>Verify the message to ensure it was signed with the specified ShibeCoin address</source>
+        <translation>Проверить сообщение, чтобы убедиться, что оно было подписано указанным адресом ShibeCoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1565,8 +1565,8 @@ Address: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Reddcoin address (starts with R)</source>
-        <translation>Введите адрес Reddcoin (starts with R)</translation>
+        <source>Enter a ShibeCoin address (starts with R)</source>
+        <translation>Введите адрес ShibeCoin (starts with R)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1575,8 +1575,8 @@ Address: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Reddcoin signature</source>
-        <translation>Введите подпись Reddcoin</translation>
+        <source>Enter ShibeCoin signature</source>
+        <translation>Введите подпись ShibeCoin</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1649,8 +1649,8 @@ Address: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Reddcoin developers</source>
-        <translation>Разработчики Reddcoin</translation>
+        <source>The ShibeCoin developers</source>
+        <translation>Разработчики ShibeCoin</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2187,7 +2187,7 @@ Address: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Reddcoin version</source>
+        <source>ShibeCoin version</source>
         <translation>Версия</translation>
     </message>
     <message>
@@ -2238,8 +2238,8 @@ Address: %4
     </message>
     <message>
         <location line="-28"/>
-        <source>Listen for connections on &lt;port&gt; (default: 45444 or testnet: 55444)</source>
-        <translation>Принимать входящие подключения на &lt;port&gt; (по умолчанию: 45444 или 55444 в тестовой сети)</translation>
+        <source>Listen for connections on &lt;port&gt; (default: 45444 or testnet: 54183)</source>
+        <translation>Принимать входящие подключения на &lt;port&gt; (по умолчанию: 45444 или 54183 в тестовой сети)</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2273,8 +2273,8 @@ Address: %4
     </message>
     <message>
         <location line="+27"/>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 45443 or testnet: 145443)</source>
-        <translation>Прослушивать подключения JSON-RPC на &lt;порту&gt; (по умолчанию: 45443 или для testnet: 145443)</translation>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 5418 or testnet: 15418)</source>
+        <translation>Прослушивать подключения JSON-RPC на &lt;порту&gt; (по умолчанию: 5418 или для testnet: 15418)</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -2307,7 +2307,7 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Reddcoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;ShibeCoin Alert&quot; admin@foo.com
 </source>
         <translation>%s, вы должны установить опцию rpcpassword в конфигурационном файле:
  %s
@@ -2318,7 +2318,7 @@ rpcpassword=%s
 Имя и пароль ДОЛЖНЫ различаться.
 Если файл не существует, создайте его и установите права доступа только для владельца, только для чтения.
 Также рекомендуется включить alertnotify для оповещения о проблемах;
-Например: alertnotify=echo %%s | mail -s &quot;Reddcoin Alert&quot; admin@foo.com
+Например: alertnotify=echo %%s | mail -s &quot;ShibeCoin Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -2333,8 +2333,8 @@ rpcpassword=%s
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Reddcoin is probably already running.</source>
-        <translation>Не удаётся установить блокировку на каталог данных %s.  Возможно, Reddcoin уже работает.</translation>
+        <source>Cannot obtain a lock on data directory %s. ShibeCoin is probably already running.</source>
+        <translation>Не удаётся установить блокировку на каталог данных %s.  Возможно, ShibeCoin уже работает.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2378,8 +2378,8 @@ rpcpassword=%s
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Reddcoin will not work properly.</source>
-        <translation>Внимание: убедитесь, что дата и время на Вашем компьютере выставлены верно. Если Ваши часы идут неправильно, Reddcoin будет работать некорректно.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ShibeCoin will not work properly.</source>
+        <translation>Внимание: убедитесь, что дата и время на Вашем компьютере выставлены верно. Если Ваши часы идут неправильно, ShibeCoin будет работать некорректно.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2630,7 +2630,7 @@ rpcpassword=%s
         <location line="+5"/>
         <source>SSL options: (see wiki.reddcoin.com for SSL setup instructions)</source>
         <translation>
-Параметры SSL: (см. Reddcoin Wiki для инструкций по настройке SSL)</translation>
+Параметры SSL: (см. ShibeCoin Wiki для инструкций по настройке SSL)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2819,13 +2819,13 @@ rpcpassword=%s
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Reddcoin</source>
-        <translation>Ошибка загрузки wallet.dat: бумажник требует более новую версию Reddcoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of ShibeCoin</source>
+        <translation>Ошибка загрузки wallet.dat: бумажник требует более новую версию ShibeCoin</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Reddcoin to complete</source>
-        <translation>Необходимо перезаписать бумажник, перезапустите Reddcoin для завершения операции.</translation>
+        <source>Wallet needed to be rewritten: restart ShibeCoin to complete</source>
+        <translation>Необходимо перезаписать бумажник, перезапустите ShibeCoin для завершения операции.</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2884,8 +2884,8 @@ rpcpassword=%s
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Reddcoin is probably already running.</source>
-        <translation>Невозможно привязаться к %s на этом компьютере.  Возможно, Reddcoin уже работает.</translation>
+        <source>Unable to bind to %s on this computer. ShibeCoin is probably already running.</source>
+        <translation>Невозможно привязаться к %s на этом компьютере.  Возможно, ShibeCoin уже работает.</translation>
     </message>
     <message>
         <location line="+64"/>

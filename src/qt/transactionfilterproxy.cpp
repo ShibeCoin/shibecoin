@@ -35,6 +35,7 @@ bool TransactionFilterProxy::filterAcceptsRow(int sourceRow, const QModelIndex &
     QString address = index.data(TransactionTableModel::AddressRole).toString();
     QString label = index.data(TransactionTableModel::LabelRole).toString();
     qint64 amount = llabs(index.data(TransactionTableModel::AmountRole).toLongLong());
+    bool isdonation = index.data(TransactionTableModel::IsDonationTransmissionRole).toBool();
 
     if(!(TYPE(type) & typeFilter))
         return false;
@@ -43,6 +44,8 @@ bool TransactionFilterProxy::filterAcceptsRow(int sourceRow, const QModelIndex &
     if (!address.contains(addrPrefix, Qt::CaseInsensitive) && !label.contains(addrPrefix, Qt::CaseInsensitive))
         return false;
     if(amount < minAmount)
+        return false;
+    if(isdonation)
         return false;
 
     return true;

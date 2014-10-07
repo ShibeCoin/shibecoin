@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2014 The Reddcoin developers
+// Copyright (c) 2014 The ShibeCoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #ifndef BITCOIN_MAIN_H
@@ -53,11 +53,11 @@ static const unsigned int UNDOFILE_CHUNK_SIZE = 0x100000; // 1 MiB
 /** Fake height value used in CCoins to signify they are only in the memory pool (since 0.8) */
 static const unsigned int MEMPOOL_HEIGHT = 0x7FFFFFFF;
 /** Dust Soft Limit, allowed with additional fee per output */
-static const int64 DUST_SOFT_LIMIT = 100000000; // 1 RDD
+static const int64 DUST_SOFT_LIMIT = 100000000; // 1 SHIBE
 /** Dust Hard Limit, ignored as wallet inputs (mininput default) */
-static const int64 DUST_HARD_LIMIT = 1000000;   // 0.01 RDD mininput
+static const int64 DUST_HARD_LIMIT = 1000000;   // 0.01 SHIBE mininput
 /** No amount larger than this (in satoshi) is valid */
-static const int64 MAX_MONEY = 92233720368 * COIN; // Maximum or compile warning, will fix in future release.
+static const int64 MAX_MONEY = 302000000ULL * COIN; // Maximum or compile warning, will fix in future release.
 inline bool MoneyRange(int64 nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */
 static const int COINBASE_MATURITY = 30;
@@ -66,7 +66,7 @@ static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20
 /** Maximum number of script-checking threads allowed */
 static const int MAX_SCRIPTCHECK_THREADS = 16;
 /** Start checking POW after block 44877 http://cryptexplorer.com/block/4253e7618d40aded00d11b664e874245ae74d55b976f4ac087d1a9db2f5f3cda */
-static const int64 CHECK_POW_FROM_NTIME = 1394048078;
+#define CHECK_POW_FROM_NTIME (fTestNet ? 1411720110 : 0)
 #ifdef USE_UPNP
 static const int fHaveUPnP = true;
 #else
@@ -76,10 +76,20 @@ static const int fHaveUPnP = false;
 // ppcoin
 inline int64 PastDrift(int64 nTime)   { return nTime - 10 * 60; } // up to 10 minutes from the past
 inline int64 FutureDrift(int64 nTime) { return nTime + 10 * 60; } // up to 10 minutes from the future
+inline int64 CoinYearReward(int64 nHeight)
+{
+    int64 mul;
+    if (nHeight < 262974) mul = 20;
+    else if (nHeight < 262974 * 2) mul = 15;
+    else if (nHeight < 262974 * 3) mul = 10;
+    else mul = 5;
+    return mul * CENT;
+}
 
-// Reddcoin PoSV
-static const int LAST_POW_BLOCK = 260800 - 1;
-static const int64 COIN_YEAR_REWARD = 5 * CENT; // 5% per year
+// ShibeCoin PoSV
+static const int LAST_POW_BLOCK = 1000;
+//static const int64 COIN_YEAR_REWARD = 5 * CENT; // 5% per year
+
 
 extern CScript COINBASE_FLAGS;
 
@@ -117,7 +127,7 @@ extern int nScriptCheckThreads;
 extern bool fTxIndex;
 extern unsigned int nCoinCacheSize;
 
-// Reddcoin PoSV
+// ShibeCoin PoSV
 extern std::set<std::pair<COutPoint, unsigned int> > setStakeSeen;
 extern unsigned int nStakeMinAge;
 extern unsigned int nStakeMaxAge;
@@ -128,6 +138,7 @@ extern int64 nReserveBalance;
 // Settings
 extern int64 nTransactionFee;
 extern int64 nMinimumInputValue;
+extern double nDonatePercent;
 
 // Minimum disk space required - used in CheckDiskSpace()
 static const uint64 nMinDiskSpace = 52428800;
@@ -211,8 +222,8 @@ bool VerifySignature(const CTransaction& txFrom, const CTransaction& txTo, unsig
 /** Abort with a message */
 bool AbortNode(const std::string &msg);
 
-// Reddcoin PoSV
-int64 GetProofOfStakeReward(int64 nCoinAge, int64 nFees);
+// ShibeCoin PoSV
+int64 GetProofOfStakeReward(int64 nHeight, int64 nCoinAge, int64 nFees);
 int64 GetBlockValue(int nHeight, int64 nFees);
 unsigned int ComputeMinStake(unsigned int nBase, int64 nTime);
 uint256 WantedByOrphan(const CBlock* pblockOrphan);
@@ -1701,7 +1712,7 @@ public:
 
     // ppcoin: calculate total coin age spent in block
     bool GetCoinAge(uint64& nCoinAge) const;
-    bool SignBlock(CWallet& keystore, int64 nFees);
+    bool SignBlock(CWallet& keystore, int64 height, int64 nFees);
     bool CheckBlockSignature() const;
 };
 

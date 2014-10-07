@@ -13,13 +13,17 @@
 SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f) :
     QSplashScreen(pixmap, f)
 {
+
+    setContentsMargins(12, 12, 12, 12);
+
     // set reference point, paddings
-    int paddingLeftCol2         = 230;
-    int paddingTopCol2          = 376;
+    int paddingLeftCol2         = 280;
+    int paddingTopCol2          = 414;
     int line1 = 0;
-    int line2 = 13;
-    int line3 = 26;
-    int line4 = 39;
+    int line2 = 12;
+    int line3 = 24;
+    int line4 = 36;
+    int line5 = 48;
 
     float fontFactor            = 1.0;
 
@@ -29,6 +33,7 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f) :
     QString copyrightText1   = QChar(0xA9)+QString(" 2009-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Bitcoin developers"));
     QString copyrightText2   = QChar(0xA9)+QString(" 2011-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Litecoin developers"));
     QString copyrightText3   = QChar(0xA9)+QString(" 2013-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Reddcoin developers"));
+    QString copyrightText4   = QChar(0xA9)+QString(" 2014-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The ShibeCoin developers"));
 
     QString font            = "Arial";
 
@@ -42,16 +47,16 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f) :
     }
 
     QPainter pixPaint(&newPixmap);
-    pixPaint.setPen(QColor(255,255,255));
+    pixPaint.setPen(QColor(0,0,0));
 
-    pixPaint.setFont(QFont(font, 9*fontFactor));
-    pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line4,versionText);
+    pixPaint.setFont(QFont(font, 8*fontFactor));
+    pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line5,versionText);
 
     // draw copyright stuff
-    pixPaint.setFont(QFont(font, 9*fontFactor));
     pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line1,copyrightText1);
     pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line2,copyrightText2);
     pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line3,copyrightText3);
+    pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line4,copyrightText4);
 
     pixPaint.end();
 

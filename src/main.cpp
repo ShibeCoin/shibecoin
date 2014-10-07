@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2014 The Reddcoin developers
+// Copyright (c) 2014 The ShibeCoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -22,7 +22,7 @@ using namespace std;
 using namespace boost;
 
 #if defined(NDEBUG)
-# error "Reddcoin cannot be compiled without assertions."
+# error "ShibeCoin cannot be compiled without assertions."
 #endif
 
 typedef vector<unsigned char> valtype;
@@ -40,9 +40,9 @@ CTxMemPool mempool;
 unsigned int nTransactionsUpdated = 0;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
-uint256 hashGenesisBlock("0xb868e0d95a3c3c0e0dadc67ee587aaf9dc8acbf99e3b4b3110fad4eb74c1decc");
-uint256 hashGenesisBlockTestNet("0x46db8d519c64586e3f0bf16153f61fdcf1d30b71ab159bf4a5b46dbcbc79d814");
-static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // Reddcoin: starting difficulty is 1 / 2^12
+uint256 hashGenesisBlock("0x55f6a908fb116cbb0d3e5138ca19494a3904fc63a9f78c9691ae06535baeea00");
+uint256 hashGenesisBlockTestNet("0x175d6037b4048d40579e195bfa8740841432c8a14bbc7e2586ca34d59c29cac9");
+static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // ShibeCoin: starting difficulty is 1 / 2^12
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
 uint256 nBestChainWork = 0;
@@ -74,7 +74,7 @@ map<uint256, set<uint256> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Reddcoin Signed Message:\n";
+const string strMessageMagic = "ShibeCoin Signed Message:\n";
 
 double dHashesPerSec = 0.0;
 int64 nHPSTimerStart = 0;
@@ -82,6 +82,7 @@ int64 nHPSTimerStart = 0;
 // Settings
 int64 nTransactionFee = 0;
 int64 nMinimumInputValue = DUST_HARD_LIMIT;
+double nDonatePercent = 0.0;
 
 // ppcoin
 set<pair<COutPoint, unsigned int> > setStakeSeen;
@@ -374,7 +375,7 @@ unsigned int LimitOrphanTxSize(unsigned int nMaxOrphans)
 
 bool CTxOut::IsDust() const
 {
-    // Reddcoin: IsDust() detection disabled, allows any valid dust to be relayed.
+    // ShibeCoin: IsDust() detection disabled, allows any valid dust to be relayed.
     // The fees imposed on each dust txo is considered sufficient spam deterrant.
     return false;
 }
@@ -637,7 +638,7 @@ int64 CTransaction::GetMinFee(unsigned int nBlockSize, bool fAllowFree,
             nMinFee = 0;
     }
 
-    // Reddcoin
+    // ShibeCoin
     // To limit dust spam, add nBaseFee for each output less than DUST_SOFT_LIMIT
     BOOST_FOREACH(const CTxOut& txout, vout)
         if (txout.nValue < DUST_SOFT_LIMIT)
@@ -1118,47 +1119,26 @@ uint256 WantedByOrphan(const CBlock* pblockOrphan)
 
 int64 GetBlockValue(int nHeight, int64 nFees)
 {
-    int64 nSubsidy = 100000 * COIN;
-
-    if (nHeight == 0) {
-        // Genesis block
-        nSubsidy = 10000 * COIN;
-    } else if (nHeight < 11) {
-        // Premine: First 10 block are 545,000,000 RDD (5% of the total coin)
-        nSubsidy = 545000000 * COIN;
-    } else if (nHeight < 10000) {
-        // Bonus reward for block 10-9,999 of 300,000 coins
-        nSubsidy = 300000 * COIN;
-    } else if (nHeight < 20000) {
-        // Bonus reward for block 10,000 - 19,999 of 200,000 coins
-        nSubsidy = 200000 * COIN;
-    } else if (nHeight < 30000) {
-        // Bonus reward for block 20,000 - 29,999 of 150,000 coins
-        nSubsidy = 150000 * COIN;
-    } else if (nHeight >= 140000) {
-      // Subsidy is cut in half every 50,000 blocks starting at block 140000
-      nSubsidy >>= ((nHeight - 140000 + 50000) / 50000);
-    }
-
-    return nSubsidy + nFees;
+    if (nHeight <= LAST_POW_BLOCK) return (301400000 / LAST_POW_BLOCK) * COIN;
+    else return 0;
 }
 
 // ppcoin: miner's coin stake reward based on coin age spent (coin-days)
-int64 GetProofOfStakeReward(int64 nCoinAge, int64 nFees)
+int64 GetProofOfStakeReward(int64 nHeight, int64 nCoinAge, int64 nFees)
 {
     // some scary rounding dirty trick here for leap / non-leap years
     // CoinAge=365 -> nSubsidy=9993
     // CoinAge=366 -> nSubsidy=10020
-    int64 nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8);
+    int64 nSubsidy = nCoinAge * CoinYearReward(nHeight) * 33 / (365 * 33 + 8);
 
     if (fDebug && GetBoolArg("-printcreation"))
-        printf("GetProofOfStakeReward(): create=%s nCoinAge=%"PRI64d"\n", FormatMoney(nSubsidy).c_str(), nCoinAge);
+        printf("GetProofOfStakeReward(): create=%s nHeight=%"PRI64d" nCoinAge=%"PRI64d"\n", FormatMoney(nSubsidy).c_str(), nHeight, nCoinAge);
 
     return nSubsidy + nFees;
 }
 
-const int64 nTargetSpacing = 60; // Reddcoin: 1 minute block
-static const int64 nTargetTimespan = 60 * 60; // Reddcoin: Not used
+const int64 nTargetSpacing = 60; // ShibeCoin: 1 minute block
+static const int64 nTargetTimespan = 60 * 60; // ShibeCoin: Not used
 
 //
 // maximum nBits value could possible be required nTime after
@@ -1167,8 +1147,10 @@ unsigned int static ComputeMaxBits(CBigNum bnTargetLimit, unsigned int nBase, in
 {
     // Testnet has min-difficulty blocks
     // after nTargetSpacing*2 time between blocks:
-    if (fTestNet && nTime > nTargetSpacing*2)
-        return bnTargetLimit.GetCompact();
+    // (disabled by fletch - we need realistic spacing between PoW
+    // blocks to kickstart staking - similar in GetNextWorkRequired)
+    //if (fTestNet && nTime > nTargetSpacing*2)
+    //    return bnTargetLimit.GetCompact();
 
     CBigNum bnResult;
     bnResult.SetCompact(nBase);
@@ -1190,7 +1172,8 @@ unsigned int static ComputeMaxBits(CBigNum bnTargetLimit, unsigned int nBase, in
 //
 unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 {
-    return ComputeMaxBits(bnProofOfWorkLimit, nBase, nTime);
+    return bnProofOfWorkLimit.GetCompact();
+    //return ComputeMaxBits(bnProofOfWorkLimit, nBase, nTime);
 }
 
 //
@@ -1334,8 +1317,8 @@ unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, const CBloc
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock)
 {
     // always mine PoW blocks at the lowest diff on testnet
-    if (fTestNet && pindexLast->nHeight < LAST_POW_BLOCK)
-        return bnProofOfWorkLimit.GetCompact();
+    //if (fTestNet && pindexLast->nHeight < LAST_POW_BLOCK)
+    //    return bnProofOfWorkLimit.GetCompact();
 
     static const int64 BlocksTargetSpacing = 1 * 60; // 1 Minute
     unsigned int       TimeDaySeconds      = 60 * 60 * 24;
@@ -1388,6 +1371,8 @@ bool IsInitialBlockDownload()
         pindexLastBest = pindexBest;
         nLastUpdate = GetTime();
     }
+    //printf("IsInitialBlockDownload test 1: %s; 2: %s\n", (GetTime() - nLastUpdate < 15) ? "yes" : "no", (pindexBest->GetBlockTime() < GetTime() - 8 * 60 * 60) ? "yes" : "no");
+    //return false; // TODO fix me.
     return (GetTime() - nLastUpdate < 15 &&
             pindexBest->GetBlockTime() < GetTime() - 8 * 60 * 60);
 }
@@ -1798,7 +1783,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("reddcoin-scriptch");
+    RenameThread("shibecoin-scriptch");
     scriptcheckqueue.Thread();
 }
 
@@ -1936,7 +1921,7 @@ bool CBlock::ConnectBlock(CValidationState &state, CBlockIndex* pindex, CCoinsVi
         if (!vtx[1].GetCoinAge(nCoinAge))
             return state.DoS(100, error("ConnectBlock() : %s unable to get coin age for coinstake", vtx[1].GetHash().ToString().substr(0,10).c_str()));
 
-        int64 nCalculatedStakeReward = GetProofOfStakeReward(nCoinAge, nFees);
+        int64 nCalculatedStakeReward = GetProofOfStakeReward(pindex->nHeight, nCoinAge, nFees);
         if (nStakeReward > nCalculatedStakeReward)
             return state.DoS(100, error("ConnectBlock() : coinstake pays too much(actual=%"PRI64d" vs calculated=%"PRI64d")", nStakeReward, nCalculatedStakeReward));
     }
@@ -2638,7 +2623,7 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
 
 bool CBlockIndex::IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned int nRequired, unsigned int nToCheck)
 {
-    // Reddcoin: temporarily disable v2 block lockin until we are ready for v2 transition
+    // ShibeCoin: temporarily disable v2 block lockin until we are ready for v2 transition
     return false;
     unsigned int nFound = 0;
     for (unsigned int i = 0; i < nToCheck && nFound < nRequired && pstart != NULL; i++)
@@ -2773,7 +2758,7 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
 }
 
 // novacoin: attempt to generate suitable proof-of-stake
-bool CBlock::SignBlock(CWallet& wallet, int64 nFees)
+bool CBlock::SignBlock(CWallet& wallet, int64 nHeight, int64 nFees)
 {
     // if we are trying to sign
     //    something except proof-of-stake block template
@@ -2795,7 +2780,7 @@ bool CBlock::SignBlock(CWallet& wallet, int64 nFees)
     {
         if (fDebug)
             printf("CBlock::SignBlock : about to create coinstake: nFees=%lld\n", nFees);
-        if (wallet.CreateCoinStake(wallet, nBits, nSearchTime-nLastCoinStakeSearchTime, nFees, txCoinStake, key))
+        if (wallet.CreateCoinStake(wallet, nBits, nSearchTime-nLastCoinStakeSearchTime, nFees, txCoinStake, key, nHeight, this))
         {
             printf("CBlock::SignBlock : coinstake created\n");
             if (txCoinStake.nTime >= max(pindexBest->GetMedianTimePast()+1, PastDrift(pindexBest->GetBlockTime())))
@@ -2821,7 +2806,6 @@ bool CBlock::SignBlock(CWallet& wallet, int64 nFees)
         nLastCoinStakeSearchInterval = nSearchTime - nLastCoinStakeSearchTime;
         nLastCoinStakeSearchTime = nSearchTime;
     }
-
     return false;
 }
 
@@ -3303,36 +3287,80 @@ bool InitBlockIndex() {
         //   vMerkleTree: 97ddfbbae6
 
         // Genesis block
-        const char* pszTimestamp = "January 21st 2014 was such a nice day...";
+        const char* pszTimestamp = "On September 24, 2014 the community officially took control of ShibeCoin.";
         CTransaction txNew;
         txNew.nVersion = 1;
-        txNew.nTime = 1390280400;
+        txNew.nTime = 1411587667;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
         txNew.vout[0].nValue = 10000 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("0438017e90579fe9bbf35aadfa0432fa9ced2977ae872b7bf331a6d52e9273f920b129baa7b75efa4fccf3613eb6ff593d2ef2d740cfd870cff548a31ee2a06718") << OP_CHECKSIG;
         CBlock block;
         block.vtx.push_back(txNew);
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime = 1390280400;
+        block.nTime = 1411587667;
         block.nBits = 0x1e0ffff0;
-        block.nNonce = 222583475;
+        block.nNonce = 760237;
 
         if (fTestNet)
         {
-            txNew.nTime = block.nTime = 1399544585;
-            block.nNonce = 1403777;
+            txNew.nTime = block.nTime = 1411709187;
+            block.nNonce = 627818;
+        }
+
+        // If genesis block hash does not match, then generate new genesis hash.
+        if (false && block.GetHash() != hashGenesisBlock)
+        {
+            printf("Searching for genesis block...\n");
+            // This will figure out a valid hash and Nonce if you're
+            // creating a different genesis block:
+            uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
+            uint256 thash;
+            char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
+
+            loop
+            {
+#if defined(USE_SSE2)
+                // Detection would work, but in cases where we KNOW it always has SSE2,
+                // it is faster to use directly than to use a function pointer or conditional.
+#if defined(_M_X64) || defined(__x86_64__) || defined(_M_AMD64) || (defined(MAC_OSX) && defined(__i386__))
+                // Always SSE2: x86_64 or Intel MacOS X
+                scrypt_1024_1_1_256_sp_sse2(BEGIN(block.nVersion), BEGIN(thash), scratchpad);
+#else
+                // Detect SSE2: 32bit x86 Linux or Windows
+                scrypt_1024_1_1_256_sp(BEGIN(block.nVersion), BEGIN(thash), scratchpad);
+#endif
+#else
+                // Generic scrypt
+                scrypt_1024_1_1_256_sp_generic(BEGIN(block.nVersion), BEGIN(thash), scratchpad);
+#endif
+                if (thash <= hashTarget)
+                    break;
+                if ((block.nNonce & 0xFFF) == 0)
+                {
+                    printf("nonce %08X: hash = %s (target = %s)\n", block.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
+                }
+                ++block.nNonce;
+                if (block.nNonce == 0)
+                {
+                    printf("NONCE WRAPPED, incrementing time\n");
+                    ++block.nTime;
+                }
+            }
+            printf("block.nTime = %u \n", block.nTime);
+            printf("block.nNonce = %u \n", block.nNonce);
+            printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
         }
 
         //// debug print
         uint256 hash = block.GetHash();
-        printf("%s\n", hash.ToString().c_str());
-        printf("%s\n", hashGenesisBlock.ToString().c_str());
-        printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0xb502bc1dc42b07092b9187e92f70e32f9a53247feae16d821bebffa916af79ff"));
+        printf("hash: %s\n", hash.ToString().c_str());
+        printf("hashGenesisBlock: %s\n", hashGenesisBlock.ToString().c_str());
+        printf("hashMerkleRoot: %s\n", block.hashMerkleRoot.ToString().c_str());
+        assert(block.hashMerkleRoot == uint256("0x2f6d5f73858c063526308f3e28a6fbb4268ec2f10cdef4ee2086d25e4d9ff111"));
         block.print();
         assert(hash == hashGenesisBlock);
 
@@ -3615,7 +3643,7 @@ bool static AlreadyHave(const CInv& inv)
 // The message start string is designed to be unlikely to occur in normal data.
 // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
 // a large 4-byte int at any alignment.
-unsigned char pchMessageStart[4] = { 0xfb, 0xc0, 0xb6, 0xdb }; // Reddcoin: increase each by adding 2 to bitcoin's value.
+unsigned char pchMessageStart[4] = { 0xfb, 0xc0, 0xb6, 0xdb }; // ShibeCoin: increase each by adding 2 to bitcoin's value.
 
 
 void static ProcessGetData(CNode* pfrom)

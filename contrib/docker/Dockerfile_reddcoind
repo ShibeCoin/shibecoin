@@ -1,5 +1,5 @@
 ############################################################
-# Dockerfile to build reddcoind container images
+# Dockerfile to build shibecoind container images
 # Based on Ubuntu
 ############################################################
 
@@ -10,29 +10,29 @@ RUN apt-get update
 RUN apt-get install -y git make g++ python-leveldb libboost-all-dev libssl-dev libdb++-dev pkg-config libminiupnpc-dev wget xz-utils
 RUN apt-get clean
 
-RUN adduser reddcoin --disabled-password
-USER reddcoin
+RUN adduser shibecoin --disabled-password
+USER shibecoin
 
-WORKDIR /home/reddcoin
+WORKDIR /home/shibecoin
 RUN mkdir bin src
 RUN echo PATH=\"\$HOME/bin:\$PATH\" >> .bash_profile
 
-WORKDIR /home/reddcoin/src
-RUN git clone https://github.com/reddcoin-project/reddcoin.git
+WORKDIR /home/shibecoin/src
+RUN git clone https://github.com/shibecoin-project/shibecoin.git
 
-WORKDIR	/home/reddcoin/src/reddcoin/src
+WORKDIR	/home/shibecoin/src/shibecoin/src
 RUN make -f makefile.unix
-RUN strip reddcoind
-RUN cp -f reddcoind /home/reddcoin/bin/
+RUN strip shibecoind
+RUN cp -f shibecoind /home/shibecoin/bin/
 RUN make -f makefile.unix clean
 
-WORKDIR	 /home/reddcoin
-RUN mkdir .reddcoin
-RUN cp -f src/reddcoin/contrib/docker/reddcoin.conf .reddcoin/
+WORKDIR	 /home/shibecoin
+RUN mkdir .shibecoin
+RUN cp -f src/shibecoin/contrib/docker/ShibeCoin.conf .shibecoin/
 
-WORKDIR /home/reddcoin/.reddcoin
-RUN wget -q https://github.com/reddcoin-project/reddcoin/releases/download/v1.3.1.2/bootstrap.dat.xz
+WORKDIR /home/shibecoin/.shibecoin
+RUN wget -q https://github.com/shibecoin-project/shibecoin/releases/download/v1.3.1.2/bootstrap.dat.xz
 
-ENV HOME /home/reddcoin
+ENV HOME /home/shibecoin
 EXPOSE 8332
-USER reddcoin
+USER shibecoin

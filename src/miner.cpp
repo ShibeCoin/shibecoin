@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2013 The NovaCoin developers
-// Copyright (c) 2014 The ReddCoin developers
+// Copyright (c) 2014 The ShibeCoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,12 +10,13 @@
 #include "kernel.h"
 #include "main.h"
 #include "wallet.h"
+#include "donation.h"
 
 using namespace std;
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// ReddcoinMiner
+// ShibeCoinMiner
 //
 
 extern unsigned int nMinerSleep;
@@ -84,7 +85,7 @@ public:
 uint64 nLastBlockTx = 0;
 uint64 nLastBlockSize = 0;
 int64 nLastCoinStakeSearchInterval = 0;
- 
+
 // We want to sort transactions by priority and fee, so:
 typedef boost::tuple<double, double, CTransaction*> TxPriority;
 class TxPriorityCompare
@@ -548,6 +549,64 @@ bool CheckStake(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
             return error("CheckStake() : ProcessBlock, block not accepted");
     }
 
+    // Donations
+    //CWalletTx wtxInput;
+    CWalletTx wtxInput;
+    wallet.GetTransaction(pblock->vtx[1].vin[0].prevout.hash, wtxInput);
+    int64 nInputCredit = wtxInput.GetCredit();
+    int64 nStakeAmount = pblock->vtx[1].vout[1].nValue - nInputCredit;
+    //int64 nStakeAmount = pblock->vtx[1].vout[1].nValue;
+    double nPercent = nDonatePercent;
+    if (nPercent < 0.0)
+    {
+        nPercent = 0.0;
+    }
+    else if (nPercent > 100.0)
+    {
+        nPercent = 100.0;
+    }
+    int64 nDonation = nStakeAmount * nPercent * 0.01;
+    printf("CREATE DONATION nInputCredit %s\n", FormatMoney(nInputCredit).c_str());
+    printf("CREATE DONATION nStakeAmount %s\n", FormatMoney(nStakeAmount).c_str());
+    printf("CREATE DONATION nDonation %s\n\n", FormatMoney(nDonation).c_str());
+    if (nDonation > 0) {
+        uint256 hash = pblock->vtx[1].GetHash();
+        CDonation donation(hash, nDonation, nDonatePercent);
+        if (CDonationDB(wallet.strDonationsFile).Add(hash, donation)) {
+          printf("\n\nCREATED DONATION stake %s - donation %s = %s  TX %s\n\n", FormatMoney(nStakeAmount).c_str(), FormatMoney(nDonation).c_str(), FormatMoney(nStakeAmount - nDonation).c_str(), hash.GetHex().c_str());
+        }
+        else {
+          printf("\n\nFAILED TO WRITE DONATION stake %s - donation %s = %s  TX %s\n\n", FormatMoney(nStakeAmount).c_str(), FormatMoney(nDonation).c_str(), FormatMoney(nStakeAmount - nDonation).c_str(), hash.GetHex().c_str());
+        }
+    }
+
+    // Donate
+    /*double nPercent = nDonatePercent;
+    if (nPercent < 0.0)
+    {
+        nPercent = 0.0;
+    }
+    else if (nPercent > 100.0)
+    {
+        nPercent = 100.0;
+    }
+    double mul = nPercent / 100.0;
+    if (mul > 0.0) {
+      uint64 amt = pblock->vtx[0].vout[0].nValue * mul;
+      if (amt > 0) {
+          printf("DONATION %s\n", FormatMoney(amt).c_str());
+          // Remove the donation from the minted output.
+          pblock->vtx[0].vout[0].nValue = pblock->vtx[0].vout[0].nValue - amt;
+          // Create donation tx.
+          const std::string addr(fTestNet ? "SaShjSdZaKW7xYkrcwoN7cgnJXbaCZFkyF" : "sQ3fFMko2rGjNnVr1SE13foqFHTUdg7acB");
+          uint32_t idx = pblock->vtx.size();
+          const std::vector<unsigned char> vch(addr.begin(), addr.end());
+          CPubKey pubkey(vch);
+          pblock->vtx[idx].vout[0].scriptPubKey = CScript() << pubkey << OP_CHECKSIG;
+          pblock->vtx[idx].vout[0].nValue = amt;
+        }
+    }*/
+
     return true;
 }
 
@@ -557,7 +616,7 @@ void StakeMiner(CWallet *pwallet)
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
 
     // Make this thread recognisable as the mining thread
-    RenameThread("reddcoin-stakeminer");
+    RenameThread("shibecoin-stakeminer");
     CReserveKey reservekey(pwallet);
     bool fTryToSync = true;
 
@@ -598,7 +657,7 @@ void StakeMiner(CWallet *pwallet)
         int64 nFees = pblocktemplate->vTxFees[0] * -1;
 
         // Trying to sign a block
-        if (pblock->SignBlock(*pwallet, nFees))
+        if (pblock->SignBlock(*pwallet, pindexBest->nHeight + 1, nFees))
         {
             SetThreadPriority(THREAD_PRIORITY_NORMAL);
             CheckStake(pblock, *pwallet, reservekey);
@@ -618,11 +677,11 @@ void StakeMiner(CWallet *pwallet)
     }
 }
 
-void static ReddcoinMiner(CWallet *pwallet)
+void static ShibeCoinMiner(CWallet *pwallet)
 {
-    printf("ReddcoinMiner started\n");
+    printf("ShibeCoinMiner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("reddcoin-miner");
+    RenameThread("shibecoin-miner");
 
     // Each thread has its own key and counter
     CReserveKey reservekey(pwallet);
@@ -646,13 +705,13 @@ void static ReddcoinMiner(CWallet *pwallet)
         // exit if received a PoSV block template
         if (pblock->vtx[0].vout[0].IsEmpty())
         {
-            printf("ReddcoinMiner : no more PoW blocks\n");
+            printf("ShibeCoinMiner : no more PoW blocks\n");
             return;
         }
 
         IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-        printf("Running ReddcoinMiner with %"PRIszu" transactions in block (%u bytes)\n", pblock->vtx.size(),
+        printf("Running ShibeCoinMiner with %"PRIszu" transactions in block (%u bytes)\n", pblock->vtx.size(),
                ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
         //
@@ -751,12 +810,12 @@ void static ReddcoinMiner(CWallet *pwallet)
     } }
     catch (boost::thread_interrupted)
     {
-        printf("ReddcoinMiner terminated\n");
+        printf("ShibeCoinMiner terminated\n");
         throw;
     }
 }
 
-void GenerateReddcoins(bool fGenerate, CWallet* pwallet)
+void GenerateShibeCoins(bool fGeneratePoW, bool fGeneratePoS, CWallet* pwallet)
 {
     static boost::thread_group* minerThreads = NULL;
 
@@ -767,21 +826,25 @@ void GenerateReddcoins(bool fGenerate, CWallet* pwallet)
         minerThreads = NULL;
     }
 
-    if (!fGenerate)
+    if (!fGeneratePoW && !fGeneratePoS)
         return;
 
     minerThreads = new boost::thread_group();
 
     // start one thread for PoSV minting
-    minerThreads->create_thread(boost::bind(&StakeMiner, pwallet));
+    if (fGeneratePoS)
+        minerThreads->create_thread(boost::bind(&StakeMiner, pwallet));
 
-    int nThreads = GetArg("-genproclimit", 0);
-    if (nThreads == 0)
-        return;
-    if (nThreads < 0)
-        nThreads = boost::thread::hardware_concurrency();
+    if (fGeneratePoW)
+    {
+        int nThreads = GetArg("-genproclimit", 0);
+        if (nThreads == 0)
+            return;
+        if (nThreads < 0)
+            nThreads = boost::thread::hardware_concurrency();
 
-    // start threads for PoW CPU mining
-    for (int i = 0; i < nThreads; i++)
-        minerThreads->create_thread(boost::bind(&ReddcoinMiner, pwallet));
+        // start threads for PoW CPU mining
+        for (int i = 0; i < nThreads; i++)
+            minerThreads->create_thread(boost::bind(&ShibeCoinMiner, pwallet));
+    }
 }

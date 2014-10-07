@@ -8,6 +8,7 @@
 #include <QObject>
 #include <vector>
 #include <map>
+#include "donation.h"
 
 #include "allocators.h" /* for SecureString */
 

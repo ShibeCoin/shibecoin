@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2014 The Reddcoin developers
+// Copyright (c) 2014 The ShibeCoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #ifndef BITCOIN_WALLET_H
@@ -88,10 +88,9 @@ public:
     mutable CCriticalSection cs_wallet;
 
     bool fFileBacked;
-    std::string strWalletFile;
+    std::string strWalletFile, strDonationsFile;
 
     std::set<int64> setKeyPool;
-
 
     typedef std::map<unsigned int, CMasterKey> MasterKeyMap;
     MasterKeyMap mapMasterKeys;
@@ -106,11 +105,12 @@ public:
         pwalletdbEncryption = NULL;
         nOrderPosNext = 0;
     }
-    CWallet(std::string strWalletFileIn)
+    CWallet(std::string strWalletFileIn, std::string strDonationsFileIn)
     {
         nWalletVersion = FEATURE_BASE;
         nWalletMaxVersion = FEATURE_BASE;
         strWalletFile = strWalletFileIn;
+        strDonationsFile = strDonationsFileIn;
         fFileBacked = true;
         nMasterKeyMaxID = 0;
         pwalletdbEncryption = NULL;
@@ -194,7 +194,7 @@ public:
     // ppcoin
     int64 GetStake() const;
     bool GetStakeWeight(const CKeyStore& keystore, uint64& nAverageWeight, uint64& nTotalWeight);
-    bool CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64 nSearchInterval, int64 nFees, CTransaction& txNew, CKey& key);
+    bool CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64 nSearchInterval, int64 nFees, CTransaction& txNew, CKey& key, int64 nHeight, CBlock* pBlock);
 
     std::string SendMoney(CScript scriptPubKey, int64 nValue, CWalletTx& wtxNew, bool fAskFee=false);
     std::string SendMoneyToDestination(const CTxDestination &address, int64 nValue, CWalletTx& wtxNew, bool fAskFee=false);

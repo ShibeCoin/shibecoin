@@ -90,12 +90,12 @@ TransactionView::TransactionView(QWidget *parent) :
     amountWidget = new QLineEdit(this);
 #if QT_VERSION >= 0x040700
     /* Do not move this to the XML file, Qt before 4.7 will choke on it */
-    amountWidget->setPlaceholderText(tr("Min amount"));
+    amountWidget->setPlaceholderText(tr("Min amount            "));
 #endif
 #ifdef Q_OS_MAC
-    amountWidget->setFixedWidth(97);
+    //amountWidget->setFixedWidth(197);
 #else
-    amountWidget->setFixedWidth(100);
+    //amountWidget->setFixedWidth(200);
 #endif
     amountWidget->setValidator(new QDoubleValidator(0, 1e20, 8, this));
     hlayout->addWidget(amountWidget);

@@ -428,7 +428,16 @@ QVariant TransactionTableModel::addressColor(const TransactionRecord *wtx) const
 
 QString TransactionTableModel::formatTxAmount(const TransactionRecord *wtx, bool showUnconfirmed) const
 {
-    QString str = BitcoinUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), wtx->credit + wtx->debit);
+    QString str;
+    CDonation donation;
+    if (CDonationDB(wallet->strDonationsFile).Get(wtx->hash, donation))
+    {
+        str = BitcoinUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), wtx->credit + wtx->debit - donation.nAmount) + QString(" + ") + BitcoinUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), donation.nAmount) + QString(" donation");
+    }
+    else
+    {
+        str = BitcoinUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), wtx->credit + wtx->debit);
+    }
     if(showUnconfirmed)
     {
         if(!wtx->status.confirmed || wtx->status.maturity != TransactionStatus::Mature)
@@ -580,6 +589,13 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
                                           rec->status.maturity != TransactionStatus::Mature);
     case FormattedAmountRole:
         return formatTxAmount(rec, false);
+    case IsDonationTransmissionRole:
+        return CDonationDB(wallet->strDonationsFile).IsDonationPayment(rec->hash);
+    case DonationAmountRole:
+        {
+            CDonation donation;
+            return CDonationDB(wallet->strDonationsFile).Get(rec->hash, donation) ? donation.nAmount : (int64)0;
+        }
     }
     return QVariant();
 }

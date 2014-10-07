@@ -1,5 +1,5 @@
 // Copyright (c) 2012-2013 The PPCoin developers
-// Copyright (c) 2014 The Reddcoin developers
+// Copyright (c) 2014 The ShibeCoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,16 +23,18 @@ unsigned int nModifierInterval = 13 * 60;
 static std::map<int, uint64> mapStakeModifierCheckpoints =
     boost::assign::map_list_of
         ( 0,    0xfd11f4e7 )
-        ( 1000, 0x71168906 )
-        ( 2000, 0x4f2ef99d )
+        /*( 100, 0x71168906 )
+        ( 200, 0x4f2ef99d )
+        ( 300, 0x4f2ef99d )*/
     ;
 
 // Hard checkpoints of stake modifiers to ensure they are deterministic (testNet)
 static std::map<int, uint64> mapStakeModifierCheckpointsTestNet =
     boost::assign::map_list_of
-        (    0, 0xfd11f4e7 )
-        ( 1000, 0x83df903d )
-        ( 2000, 0xbd536e75 )
+        (    0, 0x0e00670b )
+        /*( 100, 0x83df903d )
+        ( 200, 0xbd536e75 )
+        ( 300, 0xbd536e75 )*/
     ;
 
 // linear coin-aging function
@@ -51,12 +53,12 @@ int64 GetCoinAgeWeightLinear(int64 nIntervalBeginning, int64 nIntervalEnd)
  * The parameters used in this function are the
  * solutions to a set of intricate mathematical
  * equations chosen specifically to incentivise
- * owners of Reddcoin to participate in minting.
+ * owners of ShibeCoin to participate in minting.
  * These parameters are also affected by the values
  * assigned to other variables such as expected
  * block confirmation time.
  * If you are merely forking the source code of
- * Reddcoin, it's highly UNLIKELY that this set of
+ * ShibeCoin, it's highly UNLIKELY that this set of
  * parameters work for your purpose. In particular,
  * if you have tweaked the values of other variables,
  * this set of parameters are certainly no longer
@@ -451,7 +453,7 @@ unsigned int GetStakeModifierChecksum(const CBlockIndex* pindex)
 // Check stake modifier hard checkpoints
 bool CheckStakeModifierCheckpoints(int nHeight, uint64 nStakeModifierChecksum)
 {
-    if (fDebug)
+    //if (fDebug)
         printf("CheckStakeModifierCheckpoints : nHeight=%d, nStakeModifierChecksum=0x%016"PRI64x"\n", nHeight, nStakeModifierChecksum);
 
     MapModifierCheckpoints& checkpoints = (fTestNet ? mapStakeModifierCheckpointsTestNet : mapStakeModifierCheckpoints);

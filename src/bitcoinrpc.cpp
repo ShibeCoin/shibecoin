@@ -10,6 +10,7 @@
 #include "base58.h"
 #include "bitcoinrpc.h"
 #include "db.h"
+#include "alert.h"
 
 #include <boost/asio.hpp>
 #include <boost/asio/ip/v6_only.hpp>
@@ -39,7 +40,7 @@ static boost::thread_group* rpc_worker_group = NULL;
 
 static inline unsigned short GetDefaultRPCPort()
 {
-    return GetBoolArg("-testnet", false) ? 55443 : 45443;
+    return GetBoolArg("-testnet", false) ? 55443 : 5418;
 }
 
 Object JSONRPCError(int code, const string& message)
@@ -182,10 +183,70 @@ Value stop(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "stop\n"
-            "Stop Reddcoin server.");
+            "Stop ShibeCoin server.");
     // Shutdown will take long enough that the response should get back
     StartShutdown();
-    return "Reddcoin server stopping";
+    return "ShibeCoin server stopping";
+}
+
+// Borrowed from PeerCoin.
+Value sendalert(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() < 6)
+        throw runtime_error(
+            "sendalert <message> <privatekey> <minver> <maxver> <priority> <id> [cancelupto]\n"
+            "<message> is the alert text message\n"
+            "<privatekey> is hex string of alert master private key\n"
+            "<minver> is the minimum applicable internal client version\n"
+            "<maxver> is the maximum applicable internal client version\n"
+            "<priority> is integer priority number\n"
+            "<id> is the alert id\n"
+            "[cancelupto] cancels all alert id's up to this number\n"
+            "Returns true or false.");
+
+    CAlert alert;
+    CKey key;
+
+    alert.strStatusBar = params[0].get_str();
+    alert.nMinVer = params[2].get_int();
+    alert.nMaxVer = params[3].get_int();
+    alert.nPriority = params[4].get_int();
+    alert.nID = params[5].get_int();
+    if (params.size() > 6)
+        alert.nCancel = params[6].get_int();
+    alert.nVersion = PROTOCOL_VERSION;
+    alert.nRelayUntil = GetAdjustedTime() + 365*24*60*60;
+    alert.nExpiration = GetAdjustedTime() + 365*24*60*60;
+
+    CDataStream sMsg(SER_NETWORK, PROTOCOL_VERSION);
+    sMsg << (CUnsignedAlert)alert;
+    alert.vchMsg = vector<unsigned char>(sMsg.begin(), sMsg.end());
+    
+    vector<unsigned char> vchPrivKey = ParseHex(params[1].get_str());
+    key.SetPrivKey(CPrivKey(vchPrivKey.begin(), vchPrivKey.end()), false); // if key is not correct openssl may crash
+    if (!key.Sign(Hash(alert.vchMsg.begin(), alert.vchMsg.end()), alert.vchSig))
+        throw runtime_error(
+            "Unable to sign alert, check private key?\n");  
+    if(!alert.ProcessAlert()) 
+        throw runtime_error(
+            "Failed to process alert.\n");
+    // Relay alert
+    {
+        LOCK(cs_vNodes);
+        BOOST_FOREACH(CNode* pnode, vNodes)
+            alert.RelayTo(pnode);
+    }
+
+    Object result;
+    result.push_back(Pair("strStatusBar", alert.strStatusBar));
+    result.push_back(Pair("nVersion", alert.nVersion));
+    result.push_back(Pair("nMinVer", alert.nMinVer));
+    result.push_back(Pair("nMaxVer", alert.nMaxVer));
+    result.push_back(Pair("nPriority", alert.nPriority));
+    result.push_back(Pair("nID", alert.nID));
+    if (alert.nCancel > 0)
+        result.push_back(Pair("nCancel", alert.nCancel));
+    return result;
 }
 
 
@@ -267,11 +328,11 @@ static const CRPCCommand vRPCCommands[] =
     { "listlockunspent",        &listlockunspent,        false,     false,      true },
     { "verifychain",            &verifychain,            true,      false,      false },
     { "getunconfirmedbalance",  &getunconfirmedbalance,  false,     false,      true },
-    // posv
+    // ppcoin
     { "getstakinginfo",         &getstakinginfo,         true,      false,      false },
     { "getcheckpoint",          &getcheckpoint,          true,      true,       false },
     { "reservebalance",         &reservebalance,         false,     false,      false },
-    { "getinterest",            &getinterest,            false,     false,      true },
+    { "sendalert",              &sendalert,              false,     true,       false },
 };
 
 CRPCTable::CRPCTable()
@@ -305,7 +366,7 @@ string HTTPPost(const string& strMsg, const map<string,string>& mapRequestHeader
 {
     ostringstream s;
     s << "POST / HTTP/1.1\r\n"
-      << "User-Agent: reddcoin-json-rpc/" << FormatFullVersion() << "\r\n"
+      << "User-Agent: shibecoin-json-rpc/" << FormatFullVersion() << "\r\n"
       << "Host: 127.0.0.1\r\n"
       << "Content-Type: application/json\r\n"
       << "Content-Length: " << strMsg.size() << "\r\n"
@@ -336,7 +397,7 @@ static string HTTPReply(int nStatus, const string& strMsg, bool keepalive)
     if (nStatus == HTTP_UNAUTHORIZED)
         return strprintf("HTTP/1.0 401 Authorization Required\r\n"
             "Date: %s\r\n"
-            "Server: reddcoin-json-rpc/%s\r\n"
+            "Server: shibecoin-json-rpc/%s\r\n"
             "WWW-Authenticate: Basic realm=\"jsonrpc\"\r\n"
             "Content-Type: text/html\r\n"
             "Content-Length: 296\r\n"
@@ -363,7 +424,7 @@ static string HTTPReply(int nStatus, const string& strMsg, bool keepalive)
             "Connection: %s\r\n"
             "Content-Length: %"PRIszu"\r\n"
             "Content-Type: application/json\r\n"
-            "Server: reddcoin-json-rpc/%s\r\n"
+            "Server: shibecoin-json-rpc/%s\r\n"
             "\r\n"
             "%s",
         nStatus,
@@ -743,7 +804,7 @@ void StartRPCThreads()
     {
         unsigned char rand_pwd[32];
         RAND_bytes(rand_pwd, 32);
-        string strWhatAmI = "To use reddcoind";
+        string strWhatAmI = "To use shibecoind";
         if (mapArgs.count("-server"))
             strWhatAmI = strprintf(_("To use the %s option"), "\"-server\"");
         else if (mapArgs.count("-daemon"))
@@ -752,13 +813,13 @@ void StartRPCThreads()
             _("%s, you must set a rpcpassword in the configuration file:\n"
               "%s\n"
               "It is recommended you use the following random password:\n"
-              "rpcuser=reddcoinrpc\n"
+              "rpcuser=shibecoinrpc\n"
               "rpcpassword=%s\n"
               "(you do not need to remember this password)\n"
               "The username and password MUST NOT be the same.\n"
               "If the file does not exist, create it with owner-readable-only file permissions.\n"
               "It is also recommended to set alertnotify so you are notified of problems;\n"
-              "for example: alertnotify=echo %%s | mail -s \"Reddcoin Alert\" admin@foo.com\n"),
+              "for example: alertnotify=echo %%s | mail -s \"ShibeCoin Alert\" admin@foo.com\n"),
                 strWhatAmI.c_str(),
                 GetConfigFile().string().c_str(),
                 EncodeBase58(&rand_pwd[0],&rand_pwd[0]+32).c_str()),
@@ -1206,9 +1267,11 @@ Array RPCConvertValues(const std::string &strMethod, const std::vector<std::stri
     if (strMethod == "verifychain"            && n > 1) ConvertTo<boost::int64_t>(params[1]);
     if (strMethod == "reservebalance"         && n > 0) ConvertTo<bool>(params[0]);
     if (strMethod == "reservebalance"         && n > 1) ConvertTo<double>(params[1]);
-    if (strMethod == "getinterest"            && n > 0) ConvertTo<boost::int64_t>(params[0]);
-    if (strMethod == "getinterest"            && n > 1) ConvertTo<boost::int64_t>(params[1]);
-
+    if (strMethod == "sendalert"              && n > 2) ConvertTo<boost::int64_t>(params[2]);
+    if (strMethod == "sendalert"              && n > 3) ConvertTo<boost::int64_t>(params[3]);
+    if (strMethod == "sendalert"              && n > 4) ConvertTo<boost::int64_t>(params[4]);
+    if (strMethod == "sendalert"              && n > 5) ConvertTo<boost::int64_t>(params[5]);
+    if (strMethod == "sendalert"              && n > 6) ConvertTo<boost::int64_t>(params[6]);
     return params;
 }
 

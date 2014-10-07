@@ -48,6 +48,8 @@ public:
         QString address = index.data(Qt::DisplayRole).toString();
         qint64 amount = index.data(TransactionTableModel::AmountRole).toLongLong();
         bool confirmed = index.data(TransactionTableModel::ConfirmedRole).toBool();
+        qint64 donation = index.data(TransactionTableModel::DonationAmountRole).toLongLong();
+
         QVariant value = index.data(Qt::ForegroundRole);
         QColor foreground = option.palette.color(QPalette::Text);
         if(value.canConvert<QBrush>())
@@ -72,7 +74,10 @@ public:
             foreground = option.palette.color(QPalette::Text);
         }
         painter->setPen(foreground);
-        QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true);
+        QString amountText = BitcoinUnits::formatWithUnit(unit, amount-donation, true);
+        if (donation > 0) {
+            amountText = amountText + QString(" + ") + BitcoinUnits::format(unit, donation) + QString(" donation");
+        }
         if(!confirmed)
         {
             amountText = QString("[") + amountText + QString("]");

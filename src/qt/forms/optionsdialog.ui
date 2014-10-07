@@ -33,10 +33,10 @@
        <item>
         <widget class="QCheckBox" name="bitcoinAtStartup">
          <property name="toolTip">
-          <string>Automatically start Reddcoin after logging in to the system.</string>
+          <string>Automatically start ShibeCoin after logging in to the system.</string>
          </property>
          <property name="text">
-          <string>&amp;Start Reddcoin on system login</string>
+          <string>&amp;Start ShibeCoin on system login</string>
          </property>
         </widget>
        </item>
@@ -154,6 +154,67 @@
         </widget>
        </item>
        <item>
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="donateInfoLabel">
+         <property name="text">
+          <string>Donate a percent of your stake to help keep the ShibeCoin network running. If you appreciate the work we are doing and wish to contribute, please consider donating a portion of your stake.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="donateLabel">
+           <property name="text">
+            <string>Donation </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="donation">
+           <property name="maximum">
+            <double>100.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.100000000000000</double>
+           </property>
+           <property name="value">
+            <double>1.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="donatePctLabel">
+           <property name="text">
+            <string>%</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -176,7 +237,7 @@
        <item>
         <widget class="QCheckBox" name="mapPortUpnp">
          <property name="toolTip">
-          <string>Automatically open the Reddcoin client port on the router. This only works when your router supports UPnP and it is enabled.</string>
+          <string>Automatically open the ShibeCoin client port on the router. This only works when your router supports UPnP and it is enabled.</string>
          </property>
          <property name="text">
           <string>Map port using &amp;UPnP</string>
@@ -186,7 +247,7 @@
        <item>
         <widget class="QCheckBox" name="connectSocks">
          <property name="toolTip">
-          <string>Connect to the Reddcoin network through a SOCKS proxy (e.g. when connecting through Tor).</string>
+          <string>Connect to the ShibeCoin network through a SOCKS proxy (e.g. when connecting through Tor).</string>
          </property>
          <property name="text">
           <string>&amp;Connect through SOCKS proxy:</string>
@@ -360,7 +421,7 @@
          <item>
           <widget class="QValueComboBox" name="lang">
            <property name="toolTip">
-            <string>The user interface language can be set here. This setting will take effect after restarting Reddcoin.</string>
+            <string>The user interface language can be set here. This setting will take effect after restarting ShibeCoin.</string>
            </property>
           </widget>
          </item>
@@ -393,7 +454,7 @@
        <item>
         <widget class="QCheckBox" name="displayAddresses">
          <property name="toolTip">
-          <string>Whether to show Reddcoin addresses in the transaction list or not.</string>
+          <string>Whether to show ShibeCoin addresses in the transaction list or not.</string>
          </property>
          <property name="text">
           <string>&amp;Display addresses in transaction list</string>
