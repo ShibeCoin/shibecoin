@@ -550,12 +550,10 @@ bool CheckStake(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     }
 
     // Donations
-    //CWalletTx wtxInput;
     CWalletTx wtxInput;
     wallet.GetTransaction(pblock->vtx[1].vin[0].prevout.hash, wtxInput);
     int64 nInputCredit = wtxInput.GetCredit();
     int64 nStakeAmount = pblock->vtx[1].vout[1].nValue - nInputCredit;
-    //int64 nStakeAmount = pblock->vtx[1].vout[1].nValue;
     double nPercent = nDonatePercent;
     if (nPercent < 0.0)
     {
@@ -576,33 +574,6 @@ bool CheckStake(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
           printf("FAILED TO WRITE DONATION stake %s - donation %s = %s  TX %s\n", FormatMoney(nStakeAmount).c_str(), FormatMoney(nDonation).c_str(), FormatMoney(nStakeAmount - nDonation).c_str(), hash.GetHex().c_str());
         }
     }
-
-    // Donate
-    /*double nPercent = nDonatePercent;
-    if (nPercent < 0.0)
-    {
-        nPercent = 0.0;
-    }
-    else if (nPercent > 100.0)
-    {
-        nPercent = 100.0;
-    }
-    double mul = nPercent / 100.0;
-    if (mul > 0.0) {
-      uint64 amt = pblock->vtx[0].vout[0].nValue * mul;
-      if (amt > 0) {
-          printf("DONATION %s\n", FormatMoney(amt).c_str());
-          // Remove the donation from the minted output.
-          pblock->vtx[0].vout[0].nValue = pblock->vtx[0].vout[0].nValue - amt;
-          // Create donation tx.
-          const std::string addr(fTestNet ? "SaShjSdZaKW7xYkrcwoN7cgnJXbaCZFkyF" : "sQ3fFMko2rGjNnVr1SE13foqFHTUdg7acB");
-          uint32_t idx = pblock->vtx.size();
-          const std::vector<unsigned char> vch(addr.begin(), addr.end());
-          CPubKey pubkey(vch);
-          pblock->vtx[idx].vout[0].scriptPubKey = CScript() << pubkey << OP_CHECKSIG;
-          pblock->vtx[idx].vout[0].nValue = amt;
-        }
-    }*/
 
     return true;
 }
