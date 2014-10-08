@@ -162,6 +162,11 @@ void OverviewPage::setBalance(qint64 balance, qint64 stake, qint64 unconfirmedBa
     ui->labelImmature->setVisible(showImmature);
     ui->labelImmatureText->setVisible(showImmature);
 
+    // only show unconfirmed if there is any
+    bool showUnconfirmed = unconfirmedBalance != 0;
+    ui->labelUnconfirmed->setVisible(showUnconfirmed);
+    ui->labelUnconfirmedText->setVisible(showUnconfirmed);
+
     // Only show donations if the user has donated
     bool showDonations = donations > 0;
     ui->labelDonations->setVisible(showDonations);
