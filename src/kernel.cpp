@@ -124,8 +124,8 @@ static int64 GetStakeModifierSelectionInterval()
     for (int nSection=0; nSection<64; nSection++)
         nSelectionInterval += GetStakeModifierSelectionIntervalSection(nSection);
 
-    if (fDebug)
-        printf("GetStakeModifierSelectionInterval : %lld\n", nSelectionInterval);
+    //if (fDebug)
+    //    printf("GetStakeModifierSelectionInterval : %lld\n", nSelectionInterval);
 
     return nSelectionInterval;
 }
@@ -291,7 +291,7 @@ static bool GetKernelStakeModifier(uint256 hashBlockFrom, uint64& nStakeModifier
     {
         if (!pindex->pnext)
         {   // reached best block; may happen if node is behind on block chain
-            if (fPrintProofOfStake || (pindex->GetBlockTime() + nStakeMinAge - nStakeModifierSelectionInterval > GetAdjustedTime()))
+            if (pindex->GetBlockTime() + nStakeMinAge - nStakeModifierSelectionInterval > GetAdjustedTime())
                 return error("GetKernelStakeModifier() : reached best block at height %d from block at hight %d",
                     pindex->nHeight, pindexFrom->nHeight);
             else
@@ -380,7 +380,7 @@ bool CheckStakeKernelHash(unsigned int nBits, const CBlock& blockFrom, unsigned 
     // Now check if proof-of-stake hash meets target protocol
     if (CBigNum(hashProofOfStake) > bnCoinDayWeight * bnTargetPerCoinDay)
         return false;
-    if (fDebug && !fPrintProofOfStake)
+    if (fDebug && fPrintProofOfStake)
     {
         printf("CheckStakeKernelHash() : using modifier 0x%016"PRI64x" at height=%d timestamp=%s for block from height=%d timestamp=%s\n",
             nStakeModifier, nStakeModifierHeight, 
