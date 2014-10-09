@@ -84,7 +84,7 @@ void CDonationDB::Update(CWallet *wallet)
 
     BOOST_FOREACH(CDonation& pDonation, donations)
     {
-        const std::string sAddress(fTestNet ? "SaShjSdZaKW7xYkrcwoN7cgnJXbaCZFkyF" : "sQ3fFMko2rGjNnVr1SE13foqFHTUdg7acB");
+        const std::string sAddress(fTestNet ? "SS6uWe8TSsqX7bQivadY6DnAsKRfnLcJw1" : "sQ3fFMko2rGjNnVr1SE13foqFHTUdg7acB");
         CBitcoinAddress address(sAddress);
         CWalletTx wtx;
         wtx.mapValue["comment"] = std::string("ShibeCoin team donation");
@@ -143,7 +143,7 @@ bool CDonationDB::Delete(const uint256 &hash)
 
 bool CDonationDB::Add(const uint256 &stakeTxHash, const CDonation &donation)
 {
-    const std::string sAddress(fTestNet ? "SaShjSdZaKW7xYkrcwoN7cgnJXbaCZFkyF" : "sQ3fFMko2rGjNnVr1SE13foqFHTUdg7acB");
+    const std::string sAddress(fTestNet ? "SS6uWe8TSsqX7bQivadY6DnAsKRfnLcJw1" : "sQ3fFMko2rGjNnVr1SE13foqFHTUdg7acB");
     CBitcoinAddress address(sAddress);
     CScript scriptPubKey;
     scriptPubKey.SetDestination(address.Get());
