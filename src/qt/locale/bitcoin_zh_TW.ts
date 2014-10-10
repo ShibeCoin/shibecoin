@@ -1407,8 +1407,8 @@ Address: %4
     </message>
     <message>
         <location line="+34"/>
-        <source>The address to send the payment to (starts with R)</source>
-        <translation>付款的目標位址 (starts with R)</translation>
+        <source>The address to send the payment to (starts with s)</source>
+        <translation>付款的目標位址 (starts with s)</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -1448,8 +1448,8 @@ Address: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a ShibeCoin address (starts with R)</source>
-        <translation>輸入瑞迪幣位址 (starts with R)</translation>
+        <source>Enter a ShibeCoin address (starts with s)</source>
+        <translation>輸入瑞迪幣位址 (starts with s)</translation>
     </message>
 </context>
 <context>
@@ -1471,8 +1471,8 @@ Address: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (starts with R)</source>
-        <translation>用來簽署訊息的位址 (starts with R)</translation>
+        <source>The address to sign the message with (starts with s)</source>
+        <translation>用來簽署訊息的位址 (starts with s)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1544,8 +1544,8 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (starts with R)</source>
-        <translation>簽署該訊息的位址 (starts with R)</translation>
+        <source>The address the message was signed with (starts with s)</source>
+        <translation>簽署該訊息的位址 (starts with s)</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1565,8 +1565,8 @@ Address: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a ShibeCoin address (starts with R)</source>
-        <translation>輸入瑞迪幣位址 (starts with R)</translation>
+        <source>Enter a ShibeCoin address (starts with s)</source>
+        <translation>輸入瑞迪幣位址 (starts with s)</translation>
     </message>
     <message>
         <location line="-2"/>

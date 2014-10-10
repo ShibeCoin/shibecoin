@@ -1407,8 +1407,8 @@ Address: %4
     </message>
     <message>
         <location line="+34"/>
-        <source>The address to send the payment to (starts with R)</source>
-        <translation>Адрес, на который будет выслан платёж (starts with R)</translation>
+        <source>The address to send the payment to (starts with s)</source>
+        <translation>Адрес, на который будет выслан платёж (starts with s)</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -1448,7 +1448,7 @@ Address: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a ShibeCoin address (starts with R)</source>
+        <source>Enter a ShibeCoin address (starts with s)</source>
         <translation>Введите ShibeCoin-адрес (например 1LA5FtQhnnWnkK6zjFfutR7Stiit4wKd63)</translation>
     </message>
 </context>
@@ -1471,8 +1471,8 @@ Address: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (starts with R)</source>
-        <translation>Адрес, которым вы хотите подписать сообщение  (starts with R)</translation>
+        <source>The address to sign the message with (starts with s)</source>
+        <translation>Адрес, которым вы хотите подписать сообщение  (starts with s)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1544,8 +1544,8 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (starts with R)</source>
-        <translation>Адрес, которым было подписано сообщение (starts with R)</translation>
+        <source>The address the message was signed with (starts with s)</source>
+        <translation>Адрес, которым было подписано сообщение (starts with s)</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1565,8 +1565,8 @@ Address: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a ShibeCoin address (starts with R)</source>
-        <translation>Введите адрес ShibeCoin (starts with R)</translation>
+        <source>Enter a ShibeCoin address (starts with s)</source>
+        <translation>Введите адрес ShibeCoin (starts with s)</translation>
     </message>
     <message>
         <location line="-2"/>

@@ -1406,8 +1406,8 @@ Adresse: %4</translation>
     </message>
     <message>
         <location line="+34"/>
-        <source>The address to send the payment to (starts with R)</source>
-        <translation>Die Zahlungsadresse der Überweisung (starts with R)</translation>
+        <source>The address to send the payment to (starts with s)</source>
+        <translation>Die Zahlungsadresse der Überweisung (starts with s)</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -1447,8 +1447,8 @@ Adresse: %4</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a ShibeCoin address (starts with R)</source>
-        <translation>ShibeCoin-Adresse eingeben (starts with R)</translation>
+        <source>Enter a ShibeCoin address (starts with s)</source>
+        <translation>ShibeCoin-Adresse eingeben (starts with s)</translation>
     </message>
 </context>
 <context>
@@ -1470,8 +1470,8 @@ Adresse: %4</translation>
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (starts with R)</source>
-        <translation>Die Adresse mit der die Nachricht signiert wird (starts with R)</translation>
+        <source>The address to sign the message with (starts with s)</source>
+        <translation>Die Adresse mit der die Nachricht signiert wird (starts with s)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1543,8 +1543,8 @@ Adresse: %4</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (starts with R)</source>
-        <translation>Die Adresse mit der die Nachricht signiert wurde (starts with R)</translation>
+        <source>The address the message was signed with (starts with s)</source>
+        <translation>Die Adresse mit der die Nachricht signiert wurde (starts with s)</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1564,8 +1564,8 @@ Adresse: %4</translation>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a ShibeCoin address (starts with R)</source>
-        <translation>ShibeCoin-Adresse eingeben (starts with R)</translation>
+        <source>Enter a ShibeCoin address (starts with s)</source>
+        <translation>ShibeCoin-Adresse eingeben (starts with s)</translation>
     </message>
     <message>
         <location line="-2"/>
