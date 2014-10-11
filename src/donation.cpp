@@ -61,7 +61,7 @@ void CDonationDB::Init(std::string filename)
 
 void CDonationDB::Update(CWallet *wallet)
 {
-    if (wallet->IsLocked() || fWalletUnlockStakingOnly)
+    if (wallet->IsLocked() || fWalletUnlockStakingOnly || wallet->strDonationsFile.empty())
         return;
 
     LOCK(wallet->cs_wallet);
@@ -71,19 +71,16 @@ void CDonationDB::Update(CWallet *wallet)
     BOOST_FOREACH(MapDonations::value_type& pDonation, openDonations)
     {
         std::map<uint256, CWalletTx>::const_iterator mi = wallet->mapWallet.find(pDonation.first);
-        if ((mi != wallet->mapWallet.end()) && (mi->second.GetAvailableCredit() > 0)) {
-            removals.push_back(pDonation.first);
+        if ((mi != wallet->mapWallet.end()) && (mi->second.GetAvailableCredit() > 0))
+        {
             donations.push_back(pDonation.second);
         }
     }
 
-    BOOST_FOREACH(const uint256& pHash, removals)
-    {
-        openDonations.erase(pHash);
-    }
-
+    // This code alters openDonations so iterate twice to avoid potential issues.
     BOOST_FOREACH(CDonation& pDonation, donations)
     {
+        CDonationDB ddb(wallet->strDonationsFile);
         const std::string sAddress(fTestNet ? "SS6uWe8TSsqX7bQivadY6DnAsKRfnLcJw1" : "sQ3fFMko2rGjNnVr1SE13foqFHTUdg7acB");
         CBitcoinAddress address(sAddress);
         CWalletTx wtx;
@@ -97,6 +94,11 @@ void CDonationDB::Update(CWallet *wallet)
         scriptPubKey.SetDestination(address.Get());
         wtx.vout.push_back(CTxOut(pDonation.nAmount, scriptPubKey));
         std::map<uint256, CWalletTx>::const_iterator mi = wallet->mapWallet.find(pDonation.stakeTxHash);
+        if (mi->second.IsSpent((mi->second.vout.size() == 3) ? 2 : 1))
+        {
+            ddb.Erase(pDonation.stakeTxHash);
+            continue;
+        }
         int64 nChange = mi->second.GetAvailableCredit() - pDonation.nAmount;
         CReserveKey reservekey(wallet);
         CPubKey vchPubKey;
@@ -107,7 +109,7 @@ void CDonationDB::Update(CWallet *wallet)
             scriptChange.SetDestination(vchPubKey.GetID());
             wtx.vout.push_back(CTxOut(nChange, scriptChange));
         }
-        wtx.vin.push_back(CTxIn(pDonation.stakeTxHash, 1));
+        wtx.vin.push_back(CTxIn(pDonation.stakeTxHash, (mi->second.vout.size() == 3) ? 2 : 1));
         if (!SignSignature(*wallet, mi->second, wtx, 0))
         {
             printf("ERROR CREATING DONATION TX: Signing transaction failed\n");
@@ -123,7 +125,7 @@ void CDonationDB::Update(CWallet *wallet)
             continue;
         }
         printf("CREATIED DONATION TX: %s\n", wtx.ToString().c_str());
-        CDonationDB(wallet->strDonationsFile).Pay(pDonation, wtx.GetHash());
+        ddb.Pay(pDonation, wtx.GetHash());
     }
 }
 
@@ -159,6 +161,8 @@ bool CDonationDB::Pay(CDonation &donation, const uint256 &donateTxHash)
 {
     donation.donateTxHash = donateTxHash;
     donationCache[donation.donateTxHash] = donation;
+    openDonations.erase(donation.stakeTxHash);
+    openDonations.erase(donation.donateTxHash);
     return Write(std::make_pair(std::string("source"), donation.stakeTxHash), donation) &&
            Write(std::make_pair(std::string("payment"), donation.donateTxHash), donation);
 }
