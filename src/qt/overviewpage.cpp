@@ -39,10 +39,11 @@ public:
         QRect mainRect = option.rect;
         QRect decorationRect(mainRect.topLeft(), QSize(DECORATION_SIZE, DECORATION_SIZE));
         int xspace = DECORATION_SIZE + 8;
-        int ypad = 6;
-        int halfheight = (mainRect.height() - 2*ypad)/2;
-        QRect amountRect(mainRect.left() + xspace, mainRect.top()+ypad, mainRect.width() - xspace, halfheight);
-        QRect addressRect(mainRect.left() + xspace, mainRect.top()+ypad+halfheight, mainRect.width() - xspace, halfheight);
+        int ypad = 2;
+        int halfheight = (mainRect.height() - 3*ypad)/3;
+        QRect dateRect(mainRect.left() + xspace, mainRect.top()+ypad, mainRect.width() - xspace, halfheight);
+        QRect amountRect(mainRect.left() + xspace, mainRect.top()+ypad+halfheight, mainRect.width() - xspace, halfheight);
+        QRect addressRect(mainRect.left() + xspace, mainRect.top()+ypad+halfheight+halfheight, mainRect.width() - xspace, halfheight);
         icon.paint(painter, decorationRect);
 
         QDateTime date = index.data(TransactionTableModel::DateRole).toDateTime();
@@ -83,10 +84,10 @@ public:
         {
             amountText = QString("[") + amountText + QString("]");
         }
-        painter->drawText(amountRect, Qt::AlignRight|Qt::AlignVCenter, amountText);
+        painter->drawText(amountRect, Qt::AlignLeft|Qt::AlignVCenter, amountText);
 
         painter->setPen(option.palette.color(QPalette::Text));
-        painter->drawText(amountRect, Qt::AlignLeft|Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
+        painter->drawText(dateRect, Qt::AlignLeft|Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
 
         painter->restore();
     }
