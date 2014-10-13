@@ -12,6 +12,7 @@
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
 #include "bitcoinunits.h"
+#include "donation.h"
 
 #include "wallet.h"
 #include "ui_interface.h"
@@ -430,7 +431,8 @@ QString TransactionTableModel::formatTxAmount(const TransactionRecord *wtx, bool
 {
     QString str;
     CDonation donation;
-    if (CDonationDB(wallet->strDonationsFile).Get(wtx->hash, donation))
+    CDonationDB ddb(wallet->strDonationsFile);
+    if (ddb.IsDonationSource(wtx->hash) && ddb.Get(wtx->hash, donation))
     {
         str = BitcoinUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), wtx->credit + wtx->debit - donation.nAmount) + QString(" + ") + BitcoinUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), donation.nAmount) + QString(" donation");
     }
@@ -594,7 +596,8 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
     case DonationAmountRole:
         {
             CDonation donation;
-            return CDonationDB(wallet->strDonationsFile).Get(rec->hash, donation) ? donation.nAmount : (int64)0;
+            CDonationDB ddb(wallet->strDonationsFile);
+            return (ddb.IsDonationSource(rec->hash) && ddb.Get(rec->hash, donation)) ? donation.nAmount : (int64)0;
         }
     }
     return QVariant();

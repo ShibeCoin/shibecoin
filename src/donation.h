@@ -78,7 +78,13 @@ public:
      */
     bool Delete(const uint256 &hash);
 
+    /** Drives donation payouts.
+     */
     static void Update(CWallet *pWallet);
+
+    /** Construct a new donation from a staking block.
+     */
+    void CreateDonation(CBlock* pblock, CWallet& wallet);
 
     /** Add a new donation.
      */

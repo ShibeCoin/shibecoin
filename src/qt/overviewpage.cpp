@@ -13,6 +13,7 @@
 #include "transactionfilterproxy.h"
 #include "guiutil.h"
 #include "guiconstants.h"
+#include "donation.h"
 
 #include <QAbstractItemDelegate>
 #include <QPainter>

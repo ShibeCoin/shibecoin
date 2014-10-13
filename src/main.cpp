@@ -83,6 +83,7 @@ int64 nHPSTimerStart = 0;
 int64 nTransactionFee = 0;
 int64 nMinimumInputValue = DUST_HARD_LIMIT;
 double nDonatePercent = 0.0;
+bool bShowDonationTx = false;
 
 // ppcoin
 set<pair<COutPoint, unsigned int> > setStakeSeen;

@@ -7,6 +7,7 @@
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
 #include "transactiontablemodel.h"
+#include "donation.h"
 
 #include "ui_interface.h"
 #include "wallet.h"

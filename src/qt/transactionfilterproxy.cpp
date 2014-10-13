@@ -10,6 +10,8 @@
 
 #include <cstdlib>
 
+extern bool bShowDonationTx;
+
 // Earliest date that can be represented (far in the past)
 const QDateTime TransactionFilterProxy::MIN_DATE = QDateTime::fromTime_t(0);
 // Last date that can be represented (far in the future)
@@ -45,7 +47,7 @@ bool TransactionFilterProxy::filterAcceptsRow(int sourceRow, const QModelIndex &
         return false;
     if(amount < minAmount)
         return false;
-    if(isdonation)
+    if(!bShowDonationTx && isdonation)
         return false;
 
     return true;

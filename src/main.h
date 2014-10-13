@@ -139,6 +139,7 @@ extern int64 nReserveBalance;
 extern int64 nTransactionFee;
 extern int64 nMinimumInputValue;
 extern double nDonatePercent;
+extern bool bShowDonationTx;
 
 // Minimum disk space required - used in CheckDiskSpace()
 static const uint64 nMinDiskSpace = 52428800;

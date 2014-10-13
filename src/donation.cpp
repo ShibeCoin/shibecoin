@@ -64,14 +64,12 @@ void CDonationDB::Update(CWallet *wallet)
     if (wallet->IsLocked() || fWalletUnlockStakingOnly || wallet->strDonationsFile.empty())
         return;
 
-    LOCK(wallet->cs_wallet);
-
     std::vector<uint256> removals;
     std::vector<CDonation> donations;
     BOOST_FOREACH(MapDonations::value_type& pDonation, openDonations)
     {
         std::map<uint256, CWalletTx>::const_iterator mi = wallet->mapWallet.find(pDonation.first);
-        if ((mi != wallet->mapWallet.end()) && (mi->second.GetAvailableCredit() > 0))
+        if ((mi != wallet->mapWallet.end()) && (mi->second.GetAvailableCredit(false) > 0) && (mi->second.IsConfirmed()) && (!pDonation.second.IsPaid()))
         {
             donations.push_back(pDonation.second);
         }
@@ -81,7 +79,20 @@ void CDonationDB::Update(CWallet *wallet)
     BOOST_FOREACH(CDonation& pDonation, donations)
     {
         CDonationDB ddb(wallet->strDonationsFile);
-        const std::string sAddress(fTestNet ? "SS6uWe8TSsqX7bQivadY6DnAsKRfnLcJw1" : "sQ3fFMko2rGjNnVr1SE13foqFHTUdg7acB");
+        if (pDonation.IsPaid())
+        {
+            printf("ERROR CREATING DONATION TX: Donation already paid, skipping.\n");
+            continue;
+        }
+        std::map<uint256, CWalletTx>::const_iterator mi = wallet->mapWallet.find(pDonation.stakeTxHash);
+        if (mi->second.IsSpent(1))
+        {
+            printf("ERROR CREATING DONATION TX: Already spent. Marking paid.\n");
+            ddb.Pay(pDonation, 1);
+            continue;
+        }
+        LOCK(wallet->cs_wallet);
+        std::string sAddress(fTestNet ? "SS6uWe8TSsqX7bQivadY6DnAsKRfnLcJw1" : "sQ3fFMko2rGjNnVr1SE13foqFHTUdg7acB");
         CBitcoinAddress address(sAddress);
         CWalletTx wtx;
         wtx.mapValue["comment"] = std::string("ShibeCoin team donation");
@@ -93,13 +104,7 @@ void CDonationDB::Update(CWallet *wallet)
         CScript scriptPubKey;
         scriptPubKey.SetDestination(address.Get());
         wtx.vout.push_back(CTxOut(pDonation.nAmount, scriptPubKey));
-        std::map<uint256, CWalletTx>::const_iterator mi = wallet->mapWallet.find(pDonation.stakeTxHash);
-        if (mi->second.IsSpent((mi->second.vout.size() == 3) ? 2 : 1))
-        {
-            ddb.Erase(pDonation.stakeTxHash);
-            continue;
-        }
-        int64 nChange = mi->second.GetAvailableCredit() - pDonation.nAmount;
+        int64 nChange = wallet->GetCredit(mi->second.vout[1]) - pDonation.nAmount;
         CReserveKey reservekey(wallet);
         CPubKey vchPubKey;
         assert(reservekey.GetReservedKey(vchPubKey));
@@ -109,23 +114,56 @@ void CDonationDB::Update(CWallet *wallet)
             scriptChange.SetDestination(vchPubKey.GetID());
             wtx.vout.push_back(CTxOut(nChange, scriptChange));
         }
-        wtx.vin.push_back(CTxIn(pDonation.stakeTxHash, (mi->second.vout.size() == 3) ? 2 : 1));
+        wtx.vin.push_back(CTxIn(pDonation.stakeTxHash, 1));
         if (!SignSignature(*wallet, mi->second, wtx, 0))
         {
-            printf("ERROR CREATING DONATION TX: Signing transaction failed\n");
-            CDonationDB(wallet->strDonationsFile).Delete(pDonation.stakeTxHash);
+            printf("ERROR CREATING DONATION TX: Signing transaction failed. Deleting.\n");
+            //ddb.Delete(pDonation.stakeTxHash);
             continue;
         }
         wtx.AddSupportingTransactions();
         wtx.fTimeReceivedIsTxTime = true;
         if (!wallet->CommitTransaction(wtx, reservekey))
         {
-            printf("Error: The donation transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.\n");
-            openDonations[pDonation.stakeTxHash] = pDonation;  // Re-queue
+            printf("ERROR CREATING DONATION TX: Cannot commit transaction. Deleting.\n");
+            //ddb.Delete(pDonation.stakeTxHash);
             continue;
         }
         printf("CREATIED DONATION TX: %s\n", wtx.ToString().c_str());
         ddb.Pay(pDonation, wtx.GetHash());
+    }
+}
+
+void CDonationDB::CreateDonation(CBlock* pblock, CWallet& wallet)
+{
+    CWalletTx wtxInput;
+    if (!wallet.GetTransaction(pblock->vtx[1].vin[0].prevout.hash, wtxInput))
+    {
+        printf("ERROR CREATING DONATION: stake prevout points to a transaction we don't own.");
+        return;
+    }
+    int64 nInputCredit = wtxInput.GetCredit();
+    int64 nStakeAmount = pblock->vtx[1].GetValueOut() - nInputCredit;
+    double nPercent = nDonatePercent;
+    if (nPercent < 0.0)
+    {
+        nPercent = 0.0;
+    }
+    else if (nPercent > 100.0)
+    {
+        nPercent = 100.0;
+    }
+    int64 nDonation = nStakeAmount * nPercent * 0.01;
+    printf("DONATION CREATE: nInputCredit=%s, nStakeAmount = %s, nDonation=%s\n", FormatMoney(nInputCredit).c_str(), FormatMoney(nStakeAmount).c_str(), FormatMoney(nDonation).c_str());
+    if (nDonation > 0) {
+        uint256 hash = pblock->vtx[1].GetHash();
+        CDonation donation(hash, nDonation, nDonatePercent);
+        if (Add(hash, donation)) {
+          printf("CREATED DONATION stake %s - donation %s = %s TX %s\n", FormatMoney(nStakeAmount).c_str(), FormatMoney(nDonation).c_str(), FormatMoney(nStakeAmount - nDonation).c_str(), hash.GetHex().c_str());
+        }
+        else {
+          printf("FAILED TO WRITE DONATION stake %s - donation %s = %s TX %s\n", FormatMoney(nStakeAmount).c_str(), FormatMoney(nDonation).c_str(), FormatMoney(nStakeAmount - nDonation).c_str(), hash.GetHex().c_str());
+        }
     }
 }
 
@@ -139,7 +177,7 @@ bool CDonationDB::Delete(const uint256 &hash)
     donationCache.erase(donation.stakeTxHash);
     openDonations.erase(donation.donateTxHash);
     donationCache.erase(donation.donateTxHash);
-    return Erase(std::make_pair(std::string("source"), donation.stakeTxHash)) && 
+    return Erase(std::make_pair(std::string("source"), donation.stakeTxHash)) &&
            Erase(std::make_pair(std::string("payment"), donation.donateTxHash));
 }
 
@@ -161,6 +199,7 @@ bool CDonationDB::Pay(CDonation &donation, const uint256 &donateTxHash)
 {
     donation.donateTxHash = donateTxHash;
     donationCache[donation.donateTxHash] = donation;
+    donationCache[donation.stakeTxHash] = donation;
     openDonations.erase(donation.stakeTxHash);
     openDonations.erase(donation.donateTxHash);
     return Write(std::make_pair(std::string("source"), donation.stakeTxHash), donation) &&
