@@ -143,7 +143,7 @@ void CDonationDB::CreateDonation(CBlock* pblock, CWallet& wallet)
         return;
     }
     int64 nInputCredit = wtxInput.GetCredit();
-    int64 nStakeAmount = pblock->vtx[1].GetValueOut() - nInputCredit;
+    int64 nStakeAmount = wallet.GetCredit(pblock->vtx[1]) - nInputCredit;
     double nPercent = nDonatePercent;
     if (nPercent < 0.0)
     {
