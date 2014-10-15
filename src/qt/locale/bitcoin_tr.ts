@@ -2237,8 +2237,8 @@ Adres: %4
     </message>
     <message>
         <location line="-28"/>
-        <source>Listen for connections on &lt;port&gt; (default: 45444 or testnet: 54183)</source>
-        <translation>Bağlantılar için dinlenecek &lt;port&gt; (varsayılan: 45444 ya da testnet: 54183)</translation>
+        <source>Listen for connections on &lt;port&gt; (default: 45183 or testnet: 54183)</source>
+        <translation>Bağlantılar için dinlenecek &lt;port&gt; (varsayılan: 45183 ya da testnet: 54183)</translation>
     </message>
     <message>
         <location line="+5"/>

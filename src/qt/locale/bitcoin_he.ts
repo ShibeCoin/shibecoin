@@ -2236,8 +2236,8 @@ Address: %4
     </message>
     <message>
         <location line="-28"/>
-        <source>Listen for connections on &lt;port&gt; (default: 45444 or testnet: 54183)</source>
-        <translation>האזן לחיבורים ב&lt;פורט&gt; (ברירת מחדל: 45444 או ברשת הבדיקה: 54183)</translation>
+        <source>Listen for connections on &lt;port&gt; (default: 45183 or testnet: 54183)</source>
+        <translation>האזן לחיבורים ב&lt;פורט&gt; (ברירת מחדל: 45183 או ברשת הבדיקה: 54183)</translation>
     </message>
     <message>
         <location line="+5"/>

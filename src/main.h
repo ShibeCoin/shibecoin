@@ -66,7 +66,7 @@ static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20
 /** Maximum number of script-checking threads allowed */
 static const int MAX_SCRIPTCHECK_THREADS = 16;
 /** Start checking POW after block 44877 http://cryptexplorer.com/block/4253e7618d40aded00d11b664e874245ae74d55b976f4ac087d1a9db2f5f3cda */
-#define CHECK_POW_FROM_NTIME (fTestNet ? 1411720110 : 0)
+#define CHECK_POW_FROM_NTIME (fTestNet ? 1411709187 : 1413242058)
 #ifdef USE_UPNP
 static const int fHaveUPnP = true;
 #else
@@ -87,7 +87,7 @@ inline int64 CoinYearReward(int64 nHeight)
 }
 
 // ShibeCoin PoSV
-static const int LAST_POW_BLOCK = 1000;
+static const int LAST_POW_BLOCK = 1001;
 //static const int64 COIN_YEAR_REWARD = 5 * CENT; // 5% per year
 
 

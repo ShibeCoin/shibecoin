@@ -40,7 +40,7 @@ CTxMemPool mempool;
 unsigned int nTransactionsUpdated = 0;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
-uint256 hashGenesisBlock("0x55f6a908fb116cbb0d3e5138ca19494a3904fc63a9f78c9691ae06535baeea00");
+uint256 hashGenesisBlock("0x3e8be8030bcbb553f5b27823765fdb72b9c9bfc1a53233296b14a62f6ee2fff1");
 uint256 hashGenesisBlockTestNet("0x175d6037b4048d40579e195bfa8740841432c8a14bbc7e2586ca34d59c29cac9");
 static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // ShibeCoin: starting difficulty is 1 / 2^12
 CBlockIndex* pindexGenesisBlock = NULL;
@@ -3288,10 +3288,10 @@ bool InitBlockIndex() {
         //   vMerkleTree: 97ddfbbae6
 
         // Genesis block
-        const char* pszTimestamp = "On September 24, 2014 the community officially took control of ShibeCoin.";
+        const char* pszTimestamp = fTestNet ? "On September 24, 2014 the community officially took control of ShibeCoin." : "On October 13, 2014 the Trustee community team officially took control of ShibeCoin.";
         CTransaction txNew;
         txNew.nVersion = 1;
-        txNew.nTime = 1411587667;
+        txNew.nTime = 1413242058;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
@@ -3302,9 +3302,9 @@ bool InitBlockIndex() {
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime = 1411587667;
+        block.nTime = 1413242058;
         block.nBits = 0x1e0ffff0;
-        block.nNonce = 760237;
+        block.nNonce = 1100587;
 
         if (fTestNet)
         {
@@ -3313,7 +3313,7 @@ bool InitBlockIndex() {
         }
 
         // If genesis block hash does not match, then generate new genesis hash.
-        if (false && block.GetHash() != hashGenesisBlock)
+        if (true && block.GetHash() != hashGenesisBlock)
         {
             printf("Searching for genesis block...\n");
             // This will figure out a valid hash and Nonce if you're
@@ -3361,7 +3361,7 @@ bool InitBlockIndex() {
         printf("hash: %s\n", hash.ToString().c_str());
         printf("hashGenesisBlock: %s\n", hashGenesisBlock.ToString().c_str());
         printf("hashMerkleRoot: %s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0x2f6d5f73858c063526308f3e28a6fbb4268ec2f10cdef4ee2086d25e4d9ff111"));
+        assert(block.hashMerkleRoot == uint256(fTestNet ? "0x2f6d5f73858c063526308f3e28a6fbb4268ec2f10cdef4ee2086d25e4d9ff111" : "0xedc5392be3a745e183b3f4a664777ec46d53204d4d98f057c1fb86ea79a95262"));
         block.print();
         assert(hash == hashGenesisBlock);
 
