@@ -1120,7 +1120,8 @@ uint256 WantedByOrphan(const CBlock* pblockOrphan)
 
 int64 GetBlockValue(int nHeight, int64 nFees)
 {
-    if (nHeight <= LAST_POW_BLOCK) return (301400000 / LAST_POW_BLOCK) * COIN;
+    if (nHeight <= 753) return (301400000 / 1000) * COIN;
+    if (nHeight <= 1001) return (301400000 / 1001) * COIN;
     else return 0;
 }
 
