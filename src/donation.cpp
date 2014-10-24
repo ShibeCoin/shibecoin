@@ -136,13 +136,16 @@ void CDonationDB::Update(CWallet *wallet)
 
 void CDonationDB::CreateDonation(CBlock* pblock, CWallet& wallet)
 {
-    CWalletTx wtxInput;
-    if (!wallet.GetTransaction(pblock->vtx[1].vin[0].prevout.hash, wtxInput))
-    {
-        printf("ERROR CREATING DONATION: stake prevout points to a transaction we don't own.");
-        return;
+    int64 nInputCredit = 0;
+    BOOST_FOREACH(CTxIn& vin, pblock->vtx[1].vin) {
+        CWalletTx wtxInput;
+        if (!wallet.GetTransaction(vin.prevout.hash, wtxInput))
+        {
+            printf("ERROR CREATING DONATION: stake input points to a transaction we don't own.");
+            return;
+        }
+        nInputCredit += wtxInput.GetCredit();
     }
-    int64 nInputCredit = wtxInput.GetCredit();
     int64 nStakeAmount = wallet.GetCredit(pblock->vtx[1]) - nInputCredit;
     double nPercent = nDonatePercent;
     if (nPercent < 0.0)

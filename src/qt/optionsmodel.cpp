@@ -54,7 +54,6 @@ void OptionsModel::Init()
     nTransactionFee = settings.value("nTransactionFee").toLongLong();
     nDonatePercent = settings.value("nDonatePercent").toDouble();
     bShowDonationTx = settings.value("bShowDonationTx").toBool();
-    bSpendZeroConfChange = settings.value("bSpendZeroConfChange").toBool();
     language = settings.value("language", "").toString();
     fCoinControlFeatures = settings.value("fCoinControlFeatures", false).toBool();
 
@@ -203,8 +202,6 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
             return QVariant(nDonatePercent);
         case ShowDonationTx:
             return QVariant(bShowDonationTx);
-        case SpendZeroConfChange:
-            return bSpendZeroConfChange;
         case DisplayUnit:
             return QVariant(nDisplayUnit);
         case DisplayAddresses:
@@ -290,12 +287,6 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
         case ShowDonationTx:
             bShowDonationTx = value.toBool();
             settings.setValue("bShowDonationTx", bShowDonationTx);
-            break;
-        case SpendZeroConfChange:
-            if (settings.value("bSpendZeroConfChange") != value) {
-                bSpendZeroConfChange = value.toBool();
-                settings.setValue("bSpendZeroConfChange", value);
-            }
             break;
         case DisplayUnit:
             nDisplayUnit = value.toInt();

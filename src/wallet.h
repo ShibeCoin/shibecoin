@@ -20,7 +20,6 @@
 #include "walletdb.h"
 
 extern bool fWalletUnlockStakingOnly;
-extern bool bSpendZeroConfChange;
 
 class CAccountingEntry;
 class CWalletTx;
@@ -675,7 +674,7 @@ public:
             return true;
         if (nDepth < 0)
             return false;
-        if (!bSpendZeroConfChange || !IsFromMe()) // using wtx's cached debit
+        if (!IsFromMe()) // using wtx's cached debit
             return false;
 
         // If no confirmations but it's from us, we can still

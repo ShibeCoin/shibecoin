@@ -133,7 +133,6 @@ void OptionsDialog::setMapper()
 
     /* Wallet */
     mapper->addMapping(ui->transactionFee, OptionsModel::Fee);
-    mapper->addMapping(ui->spendZeroConfChange, OptionsModel::SpendZeroConfChange);
     mapper->addMapping(ui->donation, OptionsModel::Donation);
     mapper->addMapping(ui->showDonationTransactions, OptionsModel::ShowDonationTx);
 

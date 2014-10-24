@@ -1174,8 +1174,7 @@ unsigned int static ComputeMaxBits(CBigNum bnTargetLimit, unsigned int nBase, in
 //
 unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 {
-    return bnProofOfWorkLimit.GetCompact();
-    //return ComputeMaxBits(bnProofOfWorkLimit, nBase, nTime);
+    return ComputeMaxBits(bnProofOfWorkLimit, nBase, nTime);
 }
 
 //

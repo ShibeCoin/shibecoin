@@ -36,7 +36,6 @@ public:
         DisplayAddresses,  // bool
         Language,          // QString
         CoinControlFeatures, // bool
-        SpendZeroConfChange,    // bool
         OptionIDRowCount,
     };
 
